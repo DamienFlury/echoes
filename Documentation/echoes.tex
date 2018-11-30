@@ -1,0 +1,28 @@
+\documentclass[a4paper, titlepage]{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[style=numeric,backend=biber]{biblatex}
+\usepackage{csquotes}
+\addbibresource{references.bib}
+
+\title{Echoes}
+\author{Damien Flury, Tim Hess}
+\date{30. November 2018}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+
+    \section{Einführung}
+    Unsere Idee ist die Entwicklung einer Webapplikation für die Planung von Hausaufgaben
+    und Prüfungen. Die Technologien, welche wir verwenden werden, sind ASP.NET Core \cite{Dotnet}
+    für das Backend (Web-Api) mit einer Microsoft SQL Server Datenbank. Im Frontend 
+    verwenden wir das beliebte Single-Page-Application-Framework Angular \cite{Angular}.
+    
+    \newpage
+    \printbibliography
+\end{document}
