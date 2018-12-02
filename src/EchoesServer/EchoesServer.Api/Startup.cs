@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace EchoesServer.Api
 {
@@ -28,6 +29,10 @@ namespace EchoesServer.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("schoolContext")));
+            services.AddMvc()
+                .AddJsonOptions(options => {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -42,6 +47,8 @@ namespace EchoesServer.Api
             {
                 app.UseHsts();
             }
+            
+            
 
             app.UseHttpsRedirection();
             app.UseMvc();

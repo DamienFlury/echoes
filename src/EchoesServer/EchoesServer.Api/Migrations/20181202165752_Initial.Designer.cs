@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EchoesServer.Api.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20181202002600_AddData")]
-    partial class AddData
+    [Migration("20181202165752_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,58 +27,58 @@ namespace EchoesServer.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClassId");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<int?>("SchoolClassId");
-
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolClassId");
+                    b.HasIndex("ClassId");
 
                     b.ToTable("Assignments");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Assignment");
 
                     b.HasData(
-                        new { Id = 1, Description = "This is an assignment.", Title = "Assignment1" },
-                        new { Id = 2, Description = "This is an assignment.", Title = "Assignment2" },
-                        new { Id = 3, Description = "This is an assignment.", Title = "Assignment3" },
-                        new { Id = 4, Description = "This is an assignment.", Title = "Assignment4" },
-                        new { Id = 5, Description = "This is an assignment.", Title = "Assignment5" },
-                        new { Id = 6, Description = "This is an assignment.", Title = "Assignment6" },
-                        new { Id = 7, Description = "This is an assignment.", Title = "Assignment7" },
-                        new { Id = 8, Description = "This is an assignment.", Title = "Assignment8" },
-                        new { Id = 9, Description = "This is an assignment.", Title = "Assignment9" },
-                        new { Id = 10, Description = "This is an assignment.", Title = "Assignment10" },
-                        new { Id = 11, Description = "This is an assignment.", Title = "Assignment11" },
-                        new { Id = 12, Description = "This is an assignment.", Title = "Assignment12" },
-                        new { Id = 13, Description = "This is an assignment.", Title = "Assignment13" },
-                        new { Id = 14, Description = "This is an assignment.", Title = "Assignment14" },
-                        new { Id = 15, Description = "This is an assignment.", Title = "Assignment15" },
-                        new { Id = 16, Description = "This is an assignment.", Title = "Assignment16" },
-                        new { Id = 17, Description = "This is an assignment.", Title = "Assignment17" },
-                        new { Id = 18, Description = "This is an assignment.", Title = "Assignment18" },
-                        new { Id = 19, Description = "This is an assignment.", Title = "Assignment19" },
-                        new { Id = 20, Description = "This is an assignment.", Title = "Assignment20" },
-                        new { Id = 21, Description = "This is an assignment.", Title = "Assignment21" },
-                        new { Id = 22, Description = "This is an assignment.", Title = "Assignment22" },
-                        new { Id = 23, Description = "This is an assignment.", Title = "Assignment23" },
-                        new { Id = 24, Description = "This is an assignment.", Title = "Assignment24" },
-                        new { Id = 25, Description = "This is an assignment.", Title = "Assignment25" },
-                        new { Id = 26, Description = "This is an assignment.", Title = "Assignment26" },
-                        new { Id = 27, Description = "This is an assignment.", Title = "Assignment27" },
-                        new { Id = 28, Description = "This is an assignment.", Title = "Assignment28" },
-                        new { Id = 29, Description = "This is an assignment.", Title = "Assignment29" },
-                        new { Id = 30, Description = "This is an assignment.", Title = "Assignment30" }
+                        new { Id = 1, ClassId = 3, Description = "This is an assignment.", Title = "Assignment1" },
+                        new { Id = 2, ClassId = 1, Description = "This is an assignment.", Title = "Assignment2" },
+                        new { Id = 3, ClassId = 3, Description = "This is an assignment.", Title = "Assignment3" },
+                        new { Id = 4, ClassId = 2, Description = "This is an assignment.", Title = "Assignment4" },
+                        new { Id = 5, ClassId = 1, Description = "This is an assignment.", Title = "Assignment5" },
+                        new { Id = 6, ClassId = 3, Description = "This is an assignment.", Title = "Assignment6" },
+                        new { Id = 7, ClassId = 1, Description = "This is an assignment.", Title = "Assignment7" },
+                        new { Id = 8, ClassId = 3, Description = "This is an assignment.", Title = "Assignment8" },
+                        new { Id = 9, ClassId = 3, Description = "This is an assignment.", Title = "Assignment9" },
+                        new { Id = 10, ClassId = 1, Description = "This is an assignment.", Title = "Assignment10" },
+                        new { Id = 11, ClassId = 3, Description = "This is an assignment.", Title = "Assignment11" },
+                        new { Id = 12, ClassId = 2, Description = "This is an assignment.", Title = "Assignment12" },
+                        new { Id = 13, ClassId = 3, Description = "This is an assignment.", Title = "Assignment13" },
+                        new { Id = 14, ClassId = 3, Description = "This is an assignment.", Title = "Assignment14" },
+                        new { Id = 15, ClassId = 2, Description = "This is an assignment.", Title = "Assignment15" },
+                        new { Id = 16, ClassId = 2, Description = "This is an assignment.", Title = "Assignment16" },
+                        new { Id = 17, ClassId = 1, Description = "This is an assignment.", Title = "Assignment17" },
+                        new { Id = 18, ClassId = 2, Description = "This is an assignment.", Title = "Assignment18" },
+                        new { Id = 19, ClassId = 3, Description = "This is an assignment.", Title = "Assignment19" },
+                        new { Id = 20, ClassId = 1, Description = "This is an assignment.", Title = "Assignment20" },
+                        new { Id = 21, ClassId = 3, Description = "This is an assignment.", Title = "Assignment21" },
+                        new { Id = 22, ClassId = 1, Description = "This is an assignment.", Title = "Assignment22" },
+                        new { Id = 23, ClassId = 1, Description = "This is an assignment.", Title = "Assignment23" },
+                        new { Id = 24, ClassId = 3, Description = "This is an assignment.", Title = "Assignment24" },
+                        new { Id = 25, ClassId = 2, Description = "This is an assignment.", Title = "Assignment25" },
+                        new { Id = 26, ClassId = 2, Description = "This is an assignment.", Title = "Assignment26" },
+                        new { Id = 27, ClassId = 3, Description = "This is an assignment.", Title = "Assignment27" },
+                        new { Id = 28, ClassId = 1, Description = "This is an assignment.", Title = "Assignment28" },
+                        new { Id = 29, ClassId = 3, Description = "This is an assignment.", Title = "Assignment29" },
+                        new { Id = 30, ClassId = 2, Description = "This is an assignment.", Title = "Assignment30" }
                     );
                 });
 
-            modelBuilder.Entity("EchoesServer.Api.Data.Entities.SchoolClass", b =>
+            modelBuilder.Entity("EchoesServer.Api.Data.Entities.Class", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace EchoesServer.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SchoolClasses");
+                    b.ToTable("Classes");
 
                     b.HasData(
                         new { Id = 1, Name = "Class1" },
@@ -103,15 +103,15 @@ namespace EchoesServer.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ClassId");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
 
-                    b.Property<int?>("SchoolClassId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolClassId");
+                    b.HasIndex("ClassId");
 
                     b.ToTable("Students");
 
@@ -169,6 +169,19 @@ namespace EchoesServer.Api.Migrations
                     );
                 });
 
+            modelBuilder.Entity("EchoesServer.Api.Data.Entities.StudentAssignment", b =>
+                {
+                    b.Property<int>("StudentId");
+
+                    b.Property<int>("AssignmentId");
+
+                    b.HasKey("StudentId", "AssignmentId");
+
+                    b.HasIndex("AssignmentId");
+
+                    b.ToTable("StudentAssignment");
+                });
+
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.Exam", b =>
                 {
                     b.HasBaseType("EchoesServer.Api.Data.Entities.Assignment");
@@ -191,16 +204,30 @@ namespace EchoesServer.Api.Migrations
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.Assignment", b =>
                 {
-                    b.HasOne("EchoesServer.Api.Data.Entities.SchoolClass")
+                    b.HasOne("EchoesServer.Api.Data.Entities.Class", "Class")
                         .WithMany("Assignments")
-                        .HasForeignKey("SchoolClassId");
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.Student", b =>
                 {
-                    b.HasOne("EchoesServer.Api.Data.Entities.SchoolClass", "SchoolClass")
+                    b.HasOne("EchoesServer.Api.Data.Entities.Class", "Class")
                         .WithMany("Students")
-                        .HasForeignKey("SchoolClassId");
+                        .HasForeignKey("ClassId");
+                });
+
+            modelBuilder.Entity("EchoesServer.Api.Data.Entities.StudentAssignment", b =>
+                {
+                    b.HasOne("EchoesServer.Api.Data.Entities.Assignment", "Assignment")
+                        .WithMany("StudentAssignments")
+                        .HasForeignKey("AssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EchoesServer.Api.Data.Entities.Student", "Student")
+                        .WithMany("StudentAssignments")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

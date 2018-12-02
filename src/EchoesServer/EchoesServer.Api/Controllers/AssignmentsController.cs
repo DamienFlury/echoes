@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EchoesServer.Api.Controllers
 {
@@ -15,7 +17,7 @@ namespace EchoesServer.Api.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Assignment>> Get() => _context.Assignments;
+        public ActionResult<IEnumerable<Assignment>> Get() => _context.Assignments.Include(assignment => assignment.Class).ToList();
 
         // GET api/values/5        
         [HttpGet("{id}")]

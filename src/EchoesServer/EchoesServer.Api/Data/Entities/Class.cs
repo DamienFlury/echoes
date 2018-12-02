@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace EchoesServer.Api.Data.Entities
 {
-    public class SchoolClass
+    public class Class
     {
         public int Id { get; set; }
         public string Name { get; set; }
