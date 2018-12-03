@@ -2,14 +2,16 @@
 using EchoesServer.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EchoesServer.Api.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    partial class SchoolContextModelSnapshot : ModelSnapshot
+    [Migration("20181203220956_Data")]
+    partial class Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,36 +40,36 @@ namespace EchoesServer.Api.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Assignment");
 
                     b.HasData(
-                        new { Id = 1, ClassId = 2, Description = "This is an assignment.", Title = "Assignment1" },
-                        new { Id = 2, ClassId = 3, Description = "This is an assignment.", Title = "Assignment2" },
-                        new { Id = 3, ClassId = 1, Description = "This is an assignment.", Title = "Assignment3" },
-                        new { Id = 4, ClassId = 3, Description = "This is an assignment.", Title = "Assignment4" },
+                        new { Id = 1, ClassId = 1, Description = "This is an assignment.", Title = "Assignment1" },
+                        new { Id = 2, ClassId = 2, Description = "This is an assignment.", Title = "Assignment2" },
+                        new { Id = 3, ClassId = 3, Description = "This is an assignment.", Title = "Assignment3" },
+                        new { Id = 4, ClassId = 2, Description = "This is an assignment.", Title = "Assignment4" },
                         new { Id = 5, ClassId = 3, Description = "This is an assignment.", Title = "Assignment5" },
-                        new { Id = 6, ClassId = 3, Description = "This is an assignment.", Title = "Assignment6" },
+                        new { Id = 6, ClassId = 2, Description = "This is an assignment.", Title = "Assignment6" },
                         new { Id = 7, ClassId = 3, Description = "This is an assignment.", Title = "Assignment7" },
-                        new { Id = 8, ClassId = 1, Description = "This is an assignment.", Title = "Assignment8" },
+                        new { Id = 8, ClassId = 2, Description = "This is an assignment.", Title = "Assignment8" },
                         new { Id = 9, ClassId = 1, Description = "This is an assignment.", Title = "Assignment9" },
-                        new { Id = 10, ClassId = 1, Description = "This is an assignment.", Title = "Assignment10" },
-                        new { Id = 11, ClassId = 3, Description = "This is an assignment.", Title = "Assignment11" },
-                        new { Id = 12, ClassId = 1, Description = "This is an assignment.", Title = "Assignment12" },
-                        new { Id = 13, ClassId = 2, Description = "This is an assignment.", Title = "Assignment13" },
-                        new { Id = 14, ClassId = 3, Description = "This is an assignment.", Title = "Assignment14" },
-                        new { Id = 15, ClassId = 1, Description = "This is an assignment.", Title = "Assignment15" },
-                        new { Id = 16, ClassId = 1, Description = "This is an assignment.", Title = "Assignment16" },
-                        new { Id = 17, ClassId = 1, Description = "This is an assignment.", Title = "Assignment17" },
-                        new { Id = 18, ClassId = 3, Description = "This is an assignment.", Title = "Assignment18" },
-                        new { Id = 19, ClassId = 2, Description = "This is an assignment.", Title = "Assignment19" },
-                        new { Id = 20, ClassId = 1, Description = "This is an assignment.", Title = "Assignment20" },
+                        new { Id = 10, ClassId = 3, Description = "This is an assignment.", Title = "Assignment10" },
+                        new { Id = 11, ClassId = 1, Description = "This is an assignment.", Title = "Assignment11" },
+                        new { Id = 12, ClassId = 3, Description = "This is an assignment.", Title = "Assignment12" },
+                        new { Id = 13, ClassId = 1, Description = "This is an assignment.", Title = "Assignment13" },
+                        new { Id = 14, ClassId = 2, Description = "This is an assignment.", Title = "Assignment14" },
+                        new { Id = 15, ClassId = 3, Description = "This is an assignment.", Title = "Assignment15" },
+                        new { Id = 16, ClassId = 3, Description = "This is an assignment.", Title = "Assignment16" },
+                        new { Id = 17, ClassId = 3, Description = "This is an assignment.", Title = "Assignment17" },
+                        new { Id = 18, ClassId = 1, Description = "This is an assignment.", Title = "Assignment18" },
+                        new { Id = 19, ClassId = 3, Description = "This is an assignment.", Title = "Assignment19" },
+                        new { Id = 20, ClassId = 3, Description = "This is an assignment.", Title = "Assignment20" },
                         new { Id = 21, ClassId = 3, Description = "This is an assignment.", Title = "Assignment21" },
-                        new { Id = 22, ClassId = 2, Description = "This is an assignment.", Title = "Assignment22" },
+                        new { Id = 22, ClassId = 1, Description = "This is an assignment.", Title = "Assignment22" },
                         new { Id = 23, ClassId = 2, Description = "This is an assignment.", Title = "Assignment23" },
                         new { Id = 24, ClassId = 1, Description = "This is an assignment.", Title = "Assignment24" },
                         new { Id = 25, ClassId = 3, Description = "This is an assignment.", Title = "Assignment25" },
-                        new { Id = 26, ClassId = 3, Description = "This is an assignment.", Title = "Assignment26" },
+                        new { Id = 26, ClassId = 1, Description = "This is an assignment.", Title = "Assignment26" },
                         new { Id = 27, ClassId = 3, Description = "This is an assignment.", Title = "Assignment27" },
-                        new { Id = 28, ClassId = 3, Description = "This is an assignment.", Title = "Assignment28" },
-                        new { Id = 29, ClassId = 1, Description = "This is an assignment.", Title = "Assignment29" },
-                        new { Id = 30, ClassId = 2, Description = "This is an assignment.", Title = "Assignment30" }
+                        new { Id = 28, ClassId = 2, Description = "This is an assignment.", Title = "Assignment28" },
+                        new { Id = 29, ClassId = 3, Description = "This is an assignment.", Title = "Assignment29" },
+                        new { Id = 30, ClassId = 1, Description = "This is an assignment.", Title = "Assignment30" }
                     );
                 });
 
@@ -180,13 +182,6 @@ namespace EchoesServer.Api.Migrations
                     b.HasIndex("ClassId");
 
                     b.ToTable("StudentClass");
-
-                    b.HasData(
-                        new { StudentId = 1, ClassId = 1 },
-                        new { StudentId = 1, ClassId = 2 },
-                        new { StudentId = 2, ClassId = 1 },
-                        new { StudentId = 2, ClassId = 3 }
-                    );
                 });
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.Exam", b =>
