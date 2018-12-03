@@ -884,3 +884,8 @@ TSWLatexianTemp*
 *.glstex
 
 # End of https://www.gitignore.io/api/latex
+
+
+# Sqlite
+*.sqlite
+# End of Sqlite
