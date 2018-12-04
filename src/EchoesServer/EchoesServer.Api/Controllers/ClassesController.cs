@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.Deployment.Internal.CodeSigning;
 using System.Linq;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.DTOs;
 using EchoesServer.Api.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EchoesServer.Api.Controllers
 {
