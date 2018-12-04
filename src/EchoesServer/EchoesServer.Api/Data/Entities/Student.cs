@@ -10,5 +10,6 @@ namespace EchoesServer.Api.Data.Entities
         public string LastName { get; set; } 
         public ICollection<StudentClass> StudentClasses { get; set; }
         public ICollection<StudentAssignment> StudentAssignments { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

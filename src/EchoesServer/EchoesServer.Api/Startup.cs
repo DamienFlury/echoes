@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EchoesServer.Api.Data;
+using EchoesServer.Api.Data.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,9 +30,16 @@ namespace EchoesServer.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.User.RequireUniqueEmail = true)
+                .AddEntityFrameworkStores<SchoolContext>();
+
+            services.AddAuthentication().AddJwtBearer();
+
             services.AddDbContext<SchoolContext>(options => options.UseSqlite("Filename=./echoes.sqlite"));
+
             services.AddMvc()
-                .AddJsonOptions(options => {
+                .AddJsonOptions(options =>
+                {
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -47,8 +56,9 @@ namespace EchoesServer.Api
             {
                 app.UseHsts();
             }
-            
-            
+
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseMvc();

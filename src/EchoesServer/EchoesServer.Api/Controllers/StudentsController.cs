@@ -3,12 +3,15 @@ using System.Linq;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.DTOs;
 using EchoesServer.Api.Data.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EchoesServer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class StudentsController : ControllerBase
     {
         private readonly SchoolContext _context;

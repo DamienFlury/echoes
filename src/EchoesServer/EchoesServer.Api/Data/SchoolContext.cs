@@ -3,11 +3,12 @@ using System.Linq;
 using System.Net;
 using System.Reflection.PortableExecutable;
 using EchoesServer.Api.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EchoesServer.Api.Data
 {
-    public class SchoolContext : DbContext
+    public class SchoolContext : IdentityDbContext<ApplicationUser>
     {
         public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
         {
@@ -15,8 +16,10 @@ namespace EchoesServer.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StudentAssignment>().HasKey(sa => new {StudentId = sa.StudentId, AssignmentId = sa.AssignmentId});
-            modelBuilder.Entity<StudentClass>().HasKey(sc => new {StudentId = sc.StudentId, ClassId = sc.ClassId});
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<StudentAssignment>().HasKey(sa => new {sa.StudentId, sa.AssignmentId});
+            modelBuilder.Entity<StudentClass>().HasKey(sc => new {sc.StudentId, sc.ClassId});
             
             var students = Enumerable.Range(1, 50).Select(index => new Student
             {
