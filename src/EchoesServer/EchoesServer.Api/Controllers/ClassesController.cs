@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Deployment.Internal.CodeSigning;
 using System.Linq;
 using EchoesServer.Api.Data;
+using EchoesServer.Api.Data.DTOs;
 using EchoesServer.Api.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +19,8 @@ namespace EchoesServer.Api.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Class>> Get() => _context.Classes;
+        public ActionResult<IEnumerable<ClassDTO>> Get() =>
+            Ok(_context.Classes.Select(cls => new ClassDTO(cls)));
 
         // GET api/values/5
         [HttpGet("{id}")]
