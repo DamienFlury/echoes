@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.Entities;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
 namespace EchoesServer.Api
@@ -33,7 +35,13 @@ namespace EchoesServer.Api
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.User.RequireUniqueEmail = true)
                 .AddEntityFrameworkStores<SchoolContext>();
 
-            services.AddAuthentication().AddJwtBearer();
+            services.AddAuthentication().AddJwtBearer(options =>
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidAudience = Configuration["Tokens:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+                });
 
             services.AddDbContext<SchoolContext>(options => options.UseSqlite("Filename=./echoes.sqlite"));
 

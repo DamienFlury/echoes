@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EchoesServer.Api.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20181204160032_Initial")]
+    [Migration("20181205095726_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,23 +25,23 @@ namespace EchoesServer.Api.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("ConcurrencyStamp");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("NormalizedEmail");
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
 
-                    b.Property<string>("NormalizedUserName");
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
 
@@ -53,11 +53,19 @@ namespace EchoesServer.Api.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<string>("UserName");
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
-                    b.ToTable("ApplicationUser");
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.Assignment", b =>
@@ -84,35 +92,35 @@ namespace EchoesServer.Api.Migrations
 
                     b.HasData(
                         new { Id = 1, ClassId = 1, Description = "This is an assignment.", Title = "Assignment1" },
-                        new { Id = 2, ClassId = 1, Description = "This is an assignment.", Title = "Assignment2" },
+                        new { Id = 2, ClassId = 2, Description = "This is an assignment.", Title = "Assignment2" },
                         new { Id = 3, ClassId = 2, Description = "This is an assignment.", Title = "Assignment3" },
                         new { Id = 4, ClassId = 3, Description = "This is an assignment.", Title = "Assignment4" },
                         new { Id = 5, ClassId = 2, Description = "This is an assignment.", Title = "Assignment5" },
-                        new { Id = 6, ClassId = 3, Description = "This is an assignment.", Title = "Assignment6" },
+                        new { Id = 6, ClassId = 1, Description = "This is an assignment.", Title = "Assignment6" },
                         new { Id = 7, ClassId = 2, Description = "This is an assignment.", Title = "Assignment7" },
-                        new { Id = 8, ClassId = 1, Description = "This is an assignment.", Title = "Assignment8" },
-                        new { Id = 9, ClassId = 2, Description = "This is an assignment.", Title = "Assignment9" },
+                        new { Id = 8, ClassId = 2, Description = "This is an assignment.", Title = "Assignment8" },
+                        new { Id = 9, ClassId = 1, Description = "This is an assignment.", Title = "Assignment9" },
                         new { Id = 10, ClassId = 3, Description = "This is an assignment.", Title = "Assignment10" },
                         new { Id = 11, ClassId = 2, Description = "This is an assignment.", Title = "Assignment11" },
-                        new { Id = 12, ClassId = 1, Description = "This is an assignment.", Title = "Assignment12" },
+                        new { Id = 12, ClassId = 2, Description = "This is an assignment.", Title = "Assignment12" },
                         new { Id = 13, ClassId = 2, Description = "This is an assignment.", Title = "Assignment13" },
-                        new { Id = 14, ClassId = 2, Description = "This is an assignment.", Title = "Assignment14" },
-                        new { Id = 15, ClassId = 1, Description = "This is an assignment.", Title = "Assignment15" },
-                        new { Id = 16, ClassId = 3, Description = "This is an assignment.", Title = "Assignment16" },
+                        new { Id = 14, ClassId = 1, Description = "This is an assignment.", Title = "Assignment14" },
+                        new { Id = 15, ClassId = 2, Description = "This is an assignment.", Title = "Assignment15" },
+                        new { Id = 16, ClassId = 2, Description = "This is an assignment.", Title = "Assignment16" },
                         new { Id = 17, ClassId = 1, Description = "This is an assignment.", Title = "Assignment17" },
                         new { Id = 18, ClassId = 3, Description = "This is an assignment.", Title = "Assignment18" },
-                        new { Id = 19, ClassId = 1, Description = "This is an assignment.", Title = "Assignment19" },
-                        new { Id = 20, ClassId = 3, Description = "This is an assignment.", Title = "Assignment20" },
-                        new { Id = 21, ClassId = 2, Description = "This is an assignment.", Title = "Assignment21" },
-                        new { Id = 22, ClassId = 3, Description = "This is an assignment.", Title = "Assignment22" },
+                        new { Id = 19, ClassId = 3, Description = "This is an assignment.", Title = "Assignment19" },
+                        new { Id = 20, ClassId = 1, Description = "This is an assignment.", Title = "Assignment20" },
+                        new { Id = 21, ClassId = 1, Description = "This is an assignment.", Title = "Assignment21" },
+                        new { Id = 22, ClassId = 2, Description = "This is an assignment.", Title = "Assignment22" },
                         new { Id = 23, ClassId = 3, Description = "This is an assignment.", Title = "Assignment23" },
                         new { Id = 24, ClassId = 3, Description = "This is an assignment.", Title = "Assignment24" },
                         new { Id = 25, ClassId = 1, Description = "This is an assignment.", Title = "Assignment25" },
                         new { Id = 26, ClassId = 2, Description = "This is an assignment.", Title = "Assignment26" },
-                        new { Id = 27, ClassId = 3, Description = "This is an assignment.", Title = "Assignment27" },
+                        new { Id = 27, ClassId = 1, Description = "This is an assignment.", Title = "Assignment27" },
                         new { Id = 28, ClassId = 3, Description = "This is an assignment.", Title = "Assignment28" },
-                        new { Id = 29, ClassId = 2, Description = "This is an assignment.", Title = "Assignment29" },
-                        new { Id = 30, ClassId = 2, Description = "This is an assignment.", Title = "Assignment30" }
+                        new { Id = 29, ClassId = 1, Description = "This is an assignment.", Title = "Assignment29" },
+                        new { Id = 30, ClassId = 1, Description = "This is an assignment.", Title = "Assignment30" }
                     );
                 });
 
@@ -139,15 +147,15 @@ namespace EchoesServer.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Students");
 
@@ -238,6 +246,113 @@ namespace EchoesServer.Api.Migrations
                     );
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.Exam", b =>
                 {
                     b.HasBaseType("EchoesServer.Api.Data.Entities.Assignment");
@@ -268,9 +383,9 @@ namespace EchoesServer.Api.Migrations
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.Student", b =>
                 {
-                    b.HasOne("EchoesServer.Api.Data.Entities.ApplicationUser", "ApplicationUser")
+                    b.HasOne("EchoesServer.Api.Data.Entities.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.StudentAssignment", b =>
@@ -296,6 +411,51 @@ namespace EchoesServer.Api.Migrations
                     b.HasOne("EchoesServer.Api.Data.Entities.Student", "Student")
                         .WithMany("StudentClasses")
                         .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("EchoesServer.Api.Data.Entities.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("EchoesServer.Api.Data.Entities.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EchoesServer.Api.Data.Entities.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("EchoesServer.Api.Data.Entities.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
