@@ -1,5 +1,6 @@
-mat-form-field {
+mat-form-field, button {
   width: 100%;
+  margin: 5px 0;
 }
 mat-card {
   max-width: 500px;
