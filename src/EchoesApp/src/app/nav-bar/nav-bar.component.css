@@ -1,6 +1,16 @@
 mat-toolbar {
-  position: absolute;
-  top: 0;
+  position: fixed;
   left: 0;
+  top: 0;
   right: 0;
+  z-index: 1;
+  box-shadow: black 0 -30px 80px;
+}
+
+.title {
+  margin-right: 20px;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
 }
