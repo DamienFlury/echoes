@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-title>Login</mat-card-title>
+  <form (submit)="onSubmit()">
+    <mat-form-field>
+      <input [formControl]="emailFormControl"
+        matInput
+        placeholder="Email"
+        type="email"
+        name="email"
+        required
+      />
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required')
+        "
+      >
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input [formControl]="passwordFormControl"
+        matInput
+        placeholder="Password"
+        type="password"
+        name="password"
+        required
+      />
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Please enter a password
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Login</button>
+  </form></mat-card
+>
