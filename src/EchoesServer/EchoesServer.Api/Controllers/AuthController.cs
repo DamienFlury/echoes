@@ -37,7 +37,7 @@ namespace EchoesServer.Api.Controllers
 
             var user = await _userManager.FindByEmailAsync(model.Email);
 
-            if (user is null) return NotFound(model);
+            if (user is null) return Unauthorized();
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
