@@ -13,7 +13,7 @@ export class AuthService {
   token: string;
   tokenExpiration: Date;
 
-  getToken(credentials): Observable<boolean> {
+  login(credentials): Observable<boolean> {
     return this.http.post(environment.apiUrl + '/api/auth', credentials).pipe(
       map(data => {
         this.token = data['token'];
