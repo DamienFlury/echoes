@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using EchoesServer.Api.Data;
-using EchoesServer.Api.Data.DTOs;
 using EchoesServer.Api.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +17,8 @@ namespace EchoesServer.Api.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<AssignmentDTO>> Get() => 
-            Ok(_context.Assignments.Select(assignment => new AssignmentDTO(assignment)));
+        public ActionResult<IEnumerable<Assignment>> Get() => 
+            Ok(_context.Assignments);
 
         // GET api/values/5        
         [HttpGet("{id}")]

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EchoesServer.Api.Data;
-using EchoesServer.Api.Data.DTOs;
 using EchoesServer.Api.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Operations;
+using Microsoft.EntityFrameworkCore;
 
 namespace EchoesServer.Api.Controllers
 {
@@ -26,7 +26,7 @@ namespace EchoesServer.Api.Controllers
 
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClassDTO>>> Get()
+        public async Task<ActionResult<IEnumerable<Class>>> Get()
         {
             var user = await _userManager.FindByEmailAsync("test@test.com");
             if (user is null)
@@ -34,14 +34,26 @@ namespace EchoesServer.Api.Controllers
                 user = new ApplicationUser
                 {
                     Email = "test@test.com",
-                    UserName = "test@test.com"
+                    UserName = "MyUserName"
                 };
 
                 var result = await _userManager.CreateAsync(user, "P@ssw0rd!");
                 if (result != IdentityResult.Success) throw new InvalidOperationException();
             }
 
-            return Ok(_context.Classes.Select(cls => new ClassDTO(cls)));
+//            return Ok(_context.Classes.Select(cls => new ClassDTO(cls)));
+//            return Ok(_context.Classes.Include(cls => cls.StudentClasses).ThenInclude(sc => sc.Student).Select(cls => new
+//            {
+//                cls.Id,
+//                cls.Name,
+//                Students = cls.StudentClasses.Select(sc => sc.Student).Select(student => new
+//                {
+//                    student.Id,
+//                    student.FirstName,
+//                    student.LastName
+//                })
+//            }));
+            return Ok(_context.Classes);
         }
 
         // GET api/values/5
