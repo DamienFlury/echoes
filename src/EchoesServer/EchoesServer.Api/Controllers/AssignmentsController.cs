@@ -17,8 +17,10 @@ namespace EchoesServer.Api.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Assignment>> Get() => 
-            Ok(_context.Assignments);
+        public ActionResult<IEnumerable<Assignment>> Get()
+        {
+            return Ok(_context.Assignments);
+        }
 
         // GET api/values/5        
         [HttpGet("{id}")]
