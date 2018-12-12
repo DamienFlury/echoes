@@ -11,10 +11,12 @@ namespace EchoesServer.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly SchoolContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(SchoolContext context, UserManager<ApplicationUser> userManager)
         {
+            _context = context;
             _userManager = userManager;
         }
 
@@ -33,6 +35,15 @@ namespace EchoesServer.Api.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result != IdentityResult.Success) return BadRequest(result.Errors);
 
+            var student = new Student
+            {
+                FirstName = user.Email,
+                LastName = user.Email,
+                User = user
+            };
+
+            await _context.Students.AddAsync(student);
+            await _context.SaveChangesAsync();
             return Created("User created", new { user.Email });
         }
     }
