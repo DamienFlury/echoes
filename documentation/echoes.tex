@@ -44,15 +44,25 @@
         \item ASP.NET Core 2.1
         \item C\# 7.3
         \item Microsoft SQL Server
+        \item Entity Framework Core
     \end{itemize}
     \subsection{Frontend}
     \begin{itemize}
     \item Angular 7
     \end{itemize}
 
+    \section{Datenbank}
+    Wie in Abbildung \ref{erd} ersichtlich, verwenden wir eine relationale Datenbank. Für die Anbindung an die Applikation
+    verwenden wir Microsofts Entity Framework Core. Die Tabelle \emph{ApplicationUser}
+    ist für das Login zuständig und besitzt eine 1-1 Beziehung mit \emph{Student}.
+    Jeder Student gehört einer oder keiner \emph{Class} (Schulklasse) an. Eine Schulklasse besitzt
+    keine oder mehrere \emph{Assignments}, also Aufträge. Die Tabelle \emph{StudentAssignment}
+    bietet die Möglichkeit, die Hausaufgaben, welche bereits erledigt wurden,
+    zu markieren.
     \begin{figure}
         \includegraphics[width=\textwidth]{uml}
-        \caption{UML-Diagramm}
+        \caption{Entity Relationship Diagram (ERD)}
+        \label{erd}
     \end{figure}
     
     % \begin{figure}
