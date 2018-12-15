@@ -1,3 +1,5 @@
-<p>
-  my-assignments works!
-</p>
+<mat-list *ngIf="assignments">
+  <mat-list-item *ngFor="let assignment of assignments">
+    {{assignment.title}}
+  </mat-list-item>
+</mat-list>
