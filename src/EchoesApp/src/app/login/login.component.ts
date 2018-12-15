@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     Validators.email
   ]);
   passwordFormControl = new FormControl('', [Validators.required]);
+  showError = false;
 
   ngOnInit() {}
 
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
         )
       )
       .subscribe(success => this.router.navigate(['']),
-      error => console.log('error'));
+      error => this.showError = true);
     console.log(this.emailFormControl.value, this.passwordFormControl.value);
   }
 }

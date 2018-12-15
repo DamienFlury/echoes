@@ -2,7 +2,8 @@
   <mat-card-title>Login</mat-card-title>
   <form (submit)="onSubmit()">
     <mat-form-field>
-      <input [formControl]="emailFormControl"
+      <input
+        [formControl]="emailFormControl"
         matInput
         placeholder="Email"
         type="email"
@@ -19,7 +20,8 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input [formControl]="passwordFormControl"
+      <input
+        [formControl]="passwordFormControl"
         matInput
         placeholder="Password"
         type="password"
@@ -31,5 +33,6 @@
       </mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Login</button>
-  </form></mat-card
->
+  </form>
+  <div *ngIf="showError" class="error">This username doesn't exist or this password is wrong.</div>
+</mat-card>
