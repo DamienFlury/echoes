@@ -44,11 +44,22 @@ namespace EchoesServer.Api.Controllers
             //                })
             //            }));
             // return Ok (_context.Classes.Where (cls => cls.StudentClasses.Select (sc => sc.Student).Any (student => student.User.UserName == User.Identity.Name)));
-            return Ok(new string[] {"lol"});
+            return Ok (new string[] { "lol" });
         }
 
         // GET api/values/5
         [HttpGet ("{id}")]
         public ActionResult<Class> Get (int id) => _context.Classes.Find (id);
+
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> Post ([FromBody] Class cls)
+        {
+            var student = await _context.Students.SingleOrDefaultAsync (std => std.User.UserName == User.Identity.Name);
+            await _context.Classes.AddAsync (cls);
+            student.StudentClasses.Add (new StudentClass { Student = student, Class = cls });
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

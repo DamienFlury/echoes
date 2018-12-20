@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,5 +31,10 @@ namespace EchoesServer.Api.Controllers
         // GET api/values/5        
         [HttpGet ("{id}")]
         public ActionResult<Assignment> Get (int id) => _context.Assignments.Find (id);
+
+
+        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        // public async Task<ActionResult> Post([FromBody] Assignment assignment) {
+        // }
     }
 }
