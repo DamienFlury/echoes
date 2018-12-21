@@ -29,22 +29,9 @@ namespace EchoesServer.Api.Controllers
         // GET api/values
         [HttpGet]
         [Authorize (AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<IEnumerable<Class>>> Get ()
+        public ActionResult<IEnumerable<Class>> Get ()
         {
-            //            return Ok(_context.Classes.Select(cls => new ClassDTO(cls)));
-            //            return Ok(_context.Classes.Include(cls => cls.StudentClasses).ThenInclude(sc => sc.Student).Select(cls => new
-            //            {
-            //                cls.Id,
-            //                cls.Name,
-            //                Students = cls.StudentClasses.Select(sc => sc.Student).Select(student => new
-            //                {
-            //                    student.Id,
-            //                    student.FirstName,
-            //                    student.LastName
-            //                })
-            //            }));
-            // return Ok (_context.Classes.Where (cls => cls.StudentClasses.Select (sc => sc.Student).Any (student => student.User.UserName == User.Identity.Name)));
-            return Ok (new string[] { "lol" });
+            return Ok (_context.Classes.Where (cls => cls.StudentClasses.Select (sc => sc.Student).Any (student => student.User.UserName == User.Identity.Name)));
         }
 
         // GET api/values/5
@@ -52,14 +39,13 @@ namespace EchoesServer.Api.Controllers
         public ActionResult<Class> Get (int id) => _context.Classes.Find (id);
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> Post ([FromBody] Class cls)
+        [Authorize (AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> Create ([FromBody] Class cls)
         {
             var student = await _context.Students.SingleOrDefaultAsync (std => std.User.UserName == User.Identity.Name);
-            await _context.Classes.AddAsync (cls);
-            student.StudentClasses.Add (new StudentClass { Student = student, Class = cls });
-            await _context.SaveChangesAsync();
-            return Ok();
+            _context.StudentClasses.Add (new StudentClass { Student = student, Class = cls });
+            await _context.SaveChangesAsync ();
+            return Ok ();
         }
     }
 }

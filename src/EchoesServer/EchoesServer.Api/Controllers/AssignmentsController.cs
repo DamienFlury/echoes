@@ -33,8 +33,11 @@ namespace EchoesServer.Api.Controllers
         public ActionResult<Assignment> Get (int id) => _context.Assignments.Find (id);
 
 
-        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        // public async Task<ActionResult> Post([FromBody] Assignment assignment) {
-        // }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> Post([FromBody] Assignment assignment) {
+            await _context.Assignments.AddAsync(assignment);
+            await _context.SaveChangesAsync();
+            return Ok(assignment);
+        }
     }
 }

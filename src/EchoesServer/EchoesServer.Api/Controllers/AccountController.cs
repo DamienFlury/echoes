@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,6 +48,12 @@ namespace EchoesServer.Api.Controllers
             await _context.Students.AddAsync(student);
             await _context.SaveChangesAsync();
             return Created("User created", new { user.Email });
+        }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public ActionResult<Student> Get() {
+            return Ok(_context.Students.SingleOrDefault(stud => stud.User.UserName == User.Identity.Name));
         }
     }
 }

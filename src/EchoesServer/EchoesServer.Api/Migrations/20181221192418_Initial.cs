@@ -209,7 +209,7 @@ namespace EchoesServer.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentClass",
+                name: "StudentClasses",
                 columns: table => new
                 {
                     StudentId = table.Column<int>(nullable: false),
@@ -217,15 +217,15 @@ namespace EchoesServer.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentClass", x => new { x.StudentId, x.ClassId });
+                    table.PrimaryKey("PK_StudentClasses", x => new { x.StudentId, x.ClassId });
                     table.ForeignKey(
-                        name: "FK_StudentClass_Classes_ClassId",
+                        name: "FK_StudentClasses_Classes_ClassId",
                         column: x => x.ClassId,
                         principalTable: "Classes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentClass_Students_StudentId",
+                        name: "FK_StudentClasses_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -524,27 +524,27 @@ namespace EchoesServer.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 1, 1, "This is an assignment.", "Assignment", "Assignment1" });
+                values: new object[] { 3, 1, "This is an assignment.", "Assignment", "Assignment3" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 28, 3, "This is an assignment.", "Assignment", "Assignment28" });
+                values: new object[] { 29, 3, "This is an assignment.", "Assignment", "Assignment29" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 24, 3, "This is an assignment.", "Assignment", "Assignment24" });
+                values: new object[] { 25, 3, "This is an assignment.", "Assignment", "Assignment25" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 23, 3, "This is an assignment.", "Assignment", "Assignment23" });
+                values: new object[] { 21, 3, "This is an assignment.", "Assignment", "Assignment21" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 19, 3, "This is an assignment.", "Assignment", "Assignment19" });
+                values: new object[] { 20, 3, "This is an assignment.", "Assignment", "Assignment20" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
@@ -554,12 +554,27 @@ namespace EchoesServer.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 10, 3, "This is an assignment.", "Assignment", "Assignment10" });
+                values: new object[] { 17, 3, "This is an assignment.", "Assignment", "Assignment17" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 4, 3, "This is an assignment.", "Assignment", "Assignment4" });
+                values: new object[] { 16, 3, "This is an assignment.", "Assignment", "Assignment16" });
+
+            migrationBuilder.InsertData(
+                table: "Assignments",
+                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
+                values: new object[] { 2, 3, "This is an assignment.", "Assignment", "Assignment2" });
+
+            migrationBuilder.InsertData(
+                table: "Assignments",
+                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
+                values: new object[] { 30, 2, "This is an assignment.", "Assignment", "Assignment30" });
+
+            migrationBuilder.InsertData(
+                table: "Assignments",
+                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
+                values: new object[] { 27, 2, "This is an assignment.", "Assignment", "Assignment27" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
@@ -569,17 +584,12 @@ namespace EchoesServer.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
+                values: new object[] { 23, 2, "This is an assignment.", "Assignment", "Assignment23" });
+
+            migrationBuilder.InsertData(
+                table: "Assignments",
+                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
                 values: new object[] { 22, 2, "This is an assignment.", "Assignment", "Assignment22" });
-
-            migrationBuilder.InsertData(
-                table: "Assignments",
-                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 16, 2, "This is an assignment.", "Assignment", "Assignment16" });
-
-            migrationBuilder.InsertData(
-                table: "Assignments",
-                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 15, 2, "This is an assignment.", "Assignment", "Assignment15" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
@@ -589,7 +599,17 @@ namespace EchoesServer.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 12, 2, "This is an assignment.", "Assignment", "Assignment12" });
+                values: new object[] { 19, 2, "This is an assignment.", "Assignment", "Assignment19" });
+
+            migrationBuilder.InsertData(
+                table: "Assignments",
+                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
+                values: new object[] { 28, 1, "This is an assignment.", "Assignment", "Assignment28" });
+
+            migrationBuilder.InsertData(
+                table: "Assignments",
+                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
+                values: new object[] { 10, 2, "This is an assignment.", "Assignment", "Assignment10" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
@@ -599,12 +619,12 @@ namespace EchoesServer.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 11, 2, "This is an assignment.", "Assignment", "Assignment11" });
+                values: new object[] { 7, 2, "This is an assignment.", "Assignment", "Assignment7" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 21, 1, "This is an assignment.", "Assignment", "Assignment21" });
+                values: new object[] { 6, 2, "This is an assignment.", "Assignment", "Assignment6" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
@@ -614,47 +634,27 @@ namespace EchoesServer.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 3, 2, "This is an assignment.", "Assignment", "Assignment3" });
+                values: new object[] { 4, 2, "This is an assignment.", "Assignment", "Assignment4" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 2, 2, "This is an assignment.", "Assignment", "Assignment2" });
+                values: new object[] { 1, 2, "This is an assignment.", "Assignment", "Assignment1" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 30, 1, "This is an assignment.", "Assignment", "Assignment30" });
+                values: new object[] { 12, 2, "This is an assignment.", "Assignment", "Assignment12" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 29, 1, "This is an assignment.", "Assignment", "Assignment29" });
+                values: new object[] { 24, 1, "This is an assignment.", "Assignment", "Assignment24" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 27, 1, "This is an assignment.", "Assignment", "Assignment27" });
-
-            migrationBuilder.InsertData(
-                table: "Assignments",
-                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 25, 1, "This is an assignment.", "Assignment", "Assignment25" });
-
-            migrationBuilder.InsertData(
-                table: "Assignments",
-                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 7, 2, "This is an assignment.", "Assignment", "Assignment7" });
-
-            migrationBuilder.InsertData(
-                table: "Assignments",
-                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 20, 1, "This is an assignment.", "Assignment", "Assignment20" });
-
-            migrationBuilder.InsertData(
-                table: "Assignments",
-                columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 17, 1, "This is an assignment.", "Assignment", "Assignment17" });
+                values: new object[] { 15, 1, "This is an assignment.", "Assignment", "Assignment15" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
@@ -664,30 +664,30 @@ namespace EchoesServer.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 9, 1, "This is an assignment.", "Assignment", "Assignment9" });
+                values: new object[] { 11, 1, "This is an assignment.", "Assignment", "Assignment11" });
 
             migrationBuilder.InsertData(
                 table: "Assignments",
                 columns: new[] { "Id", "ClassId", "Description", "Discriminator", "Title" },
-                values: new object[] { 6, 1, "This is an assignment.", "Assignment", "Assignment6" });
+                values: new object[] { 9, 1, "This is an assignment.", "Assignment", "Assignment9" });
 
             migrationBuilder.InsertData(
-                table: "StudentClass",
+                table: "StudentClasses",
                 columns: new[] { "StudentId", "ClassId" },
                 values: new object[] { 1, 2 });
 
             migrationBuilder.InsertData(
-                table: "StudentClass",
+                table: "StudentClasses",
                 columns: new[] { "StudentId", "ClassId" },
                 values: new object[] { 2, 1 });
 
             migrationBuilder.InsertData(
-                table: "StudentClass",
+                table: "StudentClasses",
                 columns: new[] { "StudentId", "ClassId" },
                 values: new object[] { 1, 1 });
 
             migrationBuilder.InsertData(
-                table: "StudentClass",
+                table: "StudentClasses",
                 columns: new[] { "StudentId", "ClassId" },
                 values: new object[] { 2, 3 });
 
@@ -739,8 +739,8 @@ namespace EchoesServer.Api.Migrations
                 column: "AssignmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentClass_ClassId",
-                table: "StudentClass",
+                name: "IX_StudentClasses_ClassId",
+                table: "StudentClasses",
                 column: "ClassId");
 
             migrationBuilder.CreateIndex(
@@ -770,7 +770,7 @@ namespace EchoesServer.Api.Migrations
                 name: "StudentAssignment");
 
             migrationBuilder.DropTable(
-                name: "StudentClass");
+                name: "StudentClasses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
