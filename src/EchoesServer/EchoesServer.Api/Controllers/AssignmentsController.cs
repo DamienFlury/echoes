@@ -32,12 +32,16 @@ namespace EchoesServer.Api.Controllers
         [HttpGet ("{id}")]
         public ActionResult<Assignment> Get (int id) => _context.Assignments.Find (id);
 
-
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> Post([FromBody] Assignment assignment) {
-            await _context.Assignments.AddAsync(assignment);
-            await _context.SaveChangesAsync();
-            return Ok(assignment);
+        [Authorize (AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> Post ([FromBody] Assignment assignment)
+        {
+            // var classId = assignment.ClassId;
+            // if (classId == 0) return BadRequest ();
+            // var student = await _context.Students.SingleOrDefaultAsync(stud => stud.User.UserName == User.Identity.Name);
+            // if(!student.StudentClasses.Any(sc => sc.StudentId == student.Id && sc.ClassId == classId)) return BadRequest();
+            await _context.Assignments.AddAsync (assignment);
+            await _context.SaveChangesAsync ();
+            return Ok (assignment);
         }
     }
 }
