@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title>Login</mat-card-title>
+  <mat-card-title>Create Account</mat-card-title>
   <form (submit)="onSubmit()">
     <mat-form-field>
       <input [formControl]="emailFormControl" matInput placeholder="Email" type="email" name="email" required />
@@ -17,10 +17,14 @@
         Please enter a password
       </mat-error>
     </mat-form-field>
+    <mat-form-field>
+      <input [formControl]="passwordRepeatFormControl" matInput placeholder="Repeat Password" type="password" name="password"
+        required />
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Please enter a password
+      </mat-error>
+    </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Login</button>
   </form>
-  <div>
-    <a routerLink="/account">Create an account</a> instead.
-  </div>
   <div *ngIf="showError" class="error">This username doesn't exist or this password is wrong.</div>
 </mat-card>

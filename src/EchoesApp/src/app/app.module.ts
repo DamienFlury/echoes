@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ClassesComponent } from './classes/classes.component';
     HomeComponent,
     AssignmentsComponent,
     LoginComponent,
-    ClassesComponent
+    ClassesComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
