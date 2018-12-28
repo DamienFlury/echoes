@@ -26,13 +26,13 @@ namespace EchoesServer.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] LoginViewModel model)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (!(user is null)) return Conflict("User already exists");
+            // var user = await _userManager.FindByEmailAsync(model.Email);
+            // if (!(user is null)) return Conflict("User already exists");
 
-            user = new ApplicationUser
+            var user = new ApplicationUser
             {
-                Email = model.Email,
-                UserName = model.Email
+                UserName = model.Email,
+                Email = model.Email
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);

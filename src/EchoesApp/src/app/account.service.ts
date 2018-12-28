@@ -11,6 +11,6 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
   createAccount(credentials: LoginViewModel) {
-    this.http.post(environment.apiUrl + '/api/account', credentials);
+    return this.http.post(environment.apiUrl + '/api/account', credentials);
   }
 }

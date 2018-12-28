@@ -10,7 +10,6 @@ namespace EchoesServer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class StudentsController : ControllerBase
     {
         private readonly SchoolContext _context;

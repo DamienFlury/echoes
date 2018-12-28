@@ -25,6 +25,8 @@ export class AccountComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    this.account
+    this.account.createAccount(new LoginViewModel(
+      this.emailFormControl.value, this.passwordFormControl.value
+    )).subscribe(console.log);
   }
 }
