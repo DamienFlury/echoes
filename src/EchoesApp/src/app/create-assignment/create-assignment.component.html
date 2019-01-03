@@ -1,3 +1,14 @@
-<p>
-  create-assignment works!
-</p>
+<mat-card>
+  <mat-card-title>New Assignment</mat-card-title>
+  <mat-card-content>
+    <form (submit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Title" [(ngModel)]="assignment.title" name="title">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="description" [(ngModel)]="assignment.description" name="description">
+      </mat-form-field>
+      <button type="submit" mat-button>Save</button>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -3,4 +3,11 @@
   <mat-nav-list>
     <a *ngFor="let assignment of cls.assignments">{{ assignment.title }}</a>
   </mat-nav-list>
+  <a
+    routerLink="/create-assignment"
+    [queryParams]="{ classId: cls.id }"
+    mat-button
+  >
+    Create Assignment
+  </a>
 </div>

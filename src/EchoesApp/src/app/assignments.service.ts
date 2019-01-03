@@ -21,4 +21,12 @@ export class AssignmentsService {
       }
     );
   }
+
+  createAssignment(assignment: Assignment) {
+    return this.http.post(environment.apiUrl + '/api/Assignments', assignment, {
+      headers: {
+        Authorization: 'Bearer ' + this.auth.token
+      }
+    });
+  }
 }

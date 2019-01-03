@@ -12,7 +12,6 @@ namespace EchoesServer.Api.Data.Entities
 
         [Required]
         public int ClassId { get; set; }
-        [Required]
         public Class Class { get; set; }
     }
 }
