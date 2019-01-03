@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
 import { AccountComponent } from './account/account.component';
 import { CreateClassComponent } from './create-class/create-class.component';
+import { CreateAssignmentComponent } from './create-assignment/create-assignment.component';
+import { ClassDetailComponent } from './class-detail/class-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { CreateClassComponent } from './create-class/create-class.component';
     LoginComponent,
     ClassesComponent,
     AccountComponent,
-    CreateClassComponent
+    CreateClassComponent,
+    CreateAssignmentComponent,
+    ClassDetailComponent
   ],
   imports: [
     BrowserModule,

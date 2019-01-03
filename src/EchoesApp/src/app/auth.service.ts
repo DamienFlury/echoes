@@ -11,7 +11,7 @@ import { LoginViewModel } from './loginViewModel';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  token: string;
+  token = '';
   tokenExpiration: Date;
 
   login(credentials: LoginViewModel): Observable<boolean> {
@@ -19,8 +19,25 @@ export class AuthService {
       map(data => {
         this.token = data['token'];
         this.tokenExpiration = data['expiration'];
+        localStorage.setItem('jwt-token', this.token);
         return true;
       })
     );
+  }
+
+  loginFromCookie(): boolean {
+    const token = localStorage.getItem('jwt-token');
+    if (!token) { return false; }
+    this.token = token;
+    return true;
+  }
+
+  get isLoggedIn(): boolean {
+    return this.token !== '';
+  }
+
+  logout() {
+    localStorage.removeItem('jwt-token');
+    this.token = '';
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AssignmentsService } from '../assignments.service';
-import { Assignment } from '../assignment';
+import { Assignment } from '../model/assignment';
 
 @Component({
   selector: 'app-assignments',

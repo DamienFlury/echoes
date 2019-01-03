@@ -1,0 +1,6 @@
+<div *ngIf="cls">
+  <h2>{{ cls.name }}</h2>
+  <mat-nav-list>
+    <a *ngFor="let assignment of cls.assignments">{{ assignment.title }}</a>
+  </mat-nav-list>
+</div>

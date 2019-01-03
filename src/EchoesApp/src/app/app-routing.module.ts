@@ -6,12 +6,16 @@ import { LoginComponent } from './login/login.component';
 import { ClassesComponent } from './classes/classes.component';
 import { AccountComponent } from './account/account.component';
 import { CreateClassComponent } from './create-class/create-class.component';
+import { CreateAssignmentComponent } from './create-assignment/create-assignment.component';
+import { ClassDetailComponent } from './class-detail/class-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'assignments', component: AssignmentsComponent },
   { path: 'classes', component: ClassesComponent },
+  { path: 'classes/:id', component: ClassDetailComponent },
   { path: 'create-class', component: CreateClassComponent},
+  { path: 'create-assignment', component: CreateAssignmentComponent},
   { path: 'login', component: LoginComponent },
   { path: 'account', component: AccountComponent }
 ];

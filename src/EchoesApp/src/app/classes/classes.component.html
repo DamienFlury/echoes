@@ -1,7 +1,6 @@
 <div *ngIf="classes">
-  <p>test</p>
-  <ul>
-    <li *ngFor="let class of classes">{{ class.name }}</li>
-  </ul>
+  <mat-nav-list>
+    <a *ngFor="let cls of classes" mat-list-item [routerLink]="cls.id">{{ cls.name }}</a>
+  </mat-nav-list>
 </div>
 <a mat-button routerLink="/create-class">Create class</a>

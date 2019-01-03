@@ -18,6 +18,12 @@ export class ClassesService {
     }});
   }
 
+  getClassById(id: number): Observable<Class> {
+    return this.http.get<Class>(environment.apiUrl + '/api/classes/' + id, { headers: {
+      Authorization: 'Bearer ' + this.auth.token
+    }});
+  }
+
   createClass(cls: Class) {
     return this.http.post(environment.apiUrl + '/api/classes', cls, { headers: {
       Authorization: 'Bearer ' + this.auth.token
