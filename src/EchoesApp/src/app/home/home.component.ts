@@ -9,10 +9,9 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
-    this.http.get(environment.apiUrl + '/api/classes').subscribe (result => console.log(result));
   }
 
 }

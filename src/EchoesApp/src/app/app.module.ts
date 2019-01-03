@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
 import { AccountComponent } from './account/account.component';
+import { CreateClassComponent } from './create-class/create-class.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AccountComponent } from './account/account.component';
     AssignmentsComponent,
     LoginComponent,
     ClassesComponent,
-    AccountComponent
+    AccountComponent,
+    CreateClassComponent
   ],
   imports: [
     BrowserModule,

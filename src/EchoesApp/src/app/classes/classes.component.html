@@ -1,3 +1,7 @@
-<p>
-  classes works!
-</p>
+<div *ngIf="classes">
+  <p>test</p>
+  <ul>
+    <li *ngFor="let class of classes">{{ class.name }}</li>
+  </ul>
+</div>
+<a mat-button routerLink="/create-class">Create class</a>
