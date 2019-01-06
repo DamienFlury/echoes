@@ -1,6 +1,6 @@
-<div *ngIf="classes">
+<mat-card *ngIf="classes">
   <mat-nav-list>
     <a *ngFor="let cls of classes" mat-list-item [routerLink]="cls.id">{{ cls.name }}</a>
   </mat-nav-list>
-</div>
-<a mat-button routerLink="/create-class">Create class</a>
+</mat-card>
+<a mat-raised-button color="primary" routerLink="/create-class">Create class</a>

@@ -1,12 +1,16 @@
 <div *ngIf="cls">
   <h2>{{ cls.name }}</h2>
-  <mat-nav-list>
-    <a *ngFor="let assignment of cls.assignments">{{ assignment.title }}</a>
-  </mat-nav-list>
+
+  <mat-card>
+    <mat-nav-list *ngIf="cls.assignments.length > 0">
+      <a mat-list-item href="#" *ngFor="let assignment of cls.assignments">{{ assignment.title }}</a>
+    </mat-nav-list>
+    <p *ngIf="cls.assignments.length == 0">No assignments yet!</p>
+  </mat-card>
   <a
     routerLink="/create-assignment"
     [queryParams]="{ classId: cls.id }"
-    mat-button
+    mat-raised-button color="primary"
   >
     Create Assignment
   </a>

@@ -4,3 +4,7 @@
 body {
   font-family: Helvetica, sans-serif;
 }
+
+mat-card {
+  margin-bottom: 20px;
+}
