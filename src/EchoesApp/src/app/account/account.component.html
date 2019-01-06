@@ -1,30 +1,51 @@
-<mat-card>
-  <mat-card-title>Create Account</mat-card-title>
-  <form (submit)="onSubmit()">
-    <mat-form-field>
-      <input [formControl]="emailFormControl" matInput placeholder="Email" type="email" name="email" required />
-      <mat-error *ngIf="
-          emailFormControl.hasError('email') &&
-          !emailFormControl.hasError('required')
-        ">
-        Please enter a valid email address
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input [formControl]="passwordFormControl" matInput placeholder="Password" type="password" name="password"
-        required />
-      <mat-error *ngIf="passwordFormControl.hasError('required')">
-        Please enter a password
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input [formControl]="passwordRepeatFormControl" matInput placeholder="Repeat Password" type="password" name="password"
-        required />
-      <mat-error *ngIf="passwordFormControl.hasError('required')">
-        Please enter a password
-      </mat-error>
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Login</button>
-  </form>
-  <div *ngIf="showError" class="error">This username doesn't exist or this password is wrong.</div>
-</mat-card>
+<h1>Create Account</h1>
+<form (submit)="onSubmit()">
+  <div class="form-group">
+    <input
+      [formControl]="emailFormControl"
+      class="form-control"
+      placeholder="Email"
+      type="email"
+      name="email"
+      required
+    />
+    <div
+      *ngIf="
+        emailFormControl.hasError('email') &&
+        !emailFormControl.hasError('required')
+      "
+    >
+      Please enter a valid email address
+    </div>
+  </div>
+  <div class="form-group">
+    <input
+      [formControl]="passwordFormControl"
+      class="form-control"
+      placeholder="Password"
+      type="password"
+      name="password"
+      required
+    />
+    <div *ngIf="passwordFormControl.hasError('required')">
+      Please enter a password
+    </div>
+  </div>
+  <div class="form-group">
+    <input
+      [formControl]="passwordRepeatFormControl"
+      class="form-control"
+      placeholder="Repeat Password"
+      type="password"
+      name="password"
+      required
+    />
+    <div *ngIf="passwordFormControl.hasError('required')">
+      Please enter a password
+    </div>
+  </div>
+  <button mat-raised-button color="primary" type="submit">Login</button>
+</form>
+<div *ngIf="showError" class="error">
+  This username doesn't exist or this password is wrong.
+</div>

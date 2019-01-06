@@ -1,7 +1,5 @@
-<mat-card>
-  <mat-list *ngIf="assignments">
-    <mat-list-item *ngFor="let assignment of assignments">
-      {{assignment.title}}
-    </mat-list-item>
-  </mat-list>
-</mat-card>
+<ul class="list-group" *ngIf="assignments">
+  <li class="list-group-item" *ngFor="let assignment of assignments">
+    {{ assignment.title }}
+  </li>
+</ul>

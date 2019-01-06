@@ -1,6 +1,6 @@
 <form (submit)="onSubmit()">
-  <mat-form-field>
-    <input matInput placeholder="Name" [(ngModel)]="cls.name" name="name">
-  </mat-form-field>
-  <button type="button" mat-raised-button color="primary" type="submit">Create</button>
+  <div class="form-group">
+    <input class="form-control" placeholder="Name" [(ngModel)]="cls.name" name="name">
+  </div>
+  <button type="button" class="btn btn-success" type="submit">Create</button>
 </form>

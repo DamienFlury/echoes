@@ -1,6 +1,6 @@
-<mat-card *ngIf="classes">
-  <mat-nav-list>
-    <a *ngFor="let cls of classes" mat-list-item [routerLink]="cls.id">{{ cls.name }}</a>
-  </mat-nav-list>
-</mat-card>
-<a mat-raised-button color="primary" routerLink="/create-class">Create class</a>
+<div *ngIf="classes" class="margin-bottom">
+  <ul class="list-group">
+    <a *ngFor="let cls of classes" class="list-group-item list-group-item-action" [routerLink]="cls.id">{{ cls.name }}</a>
+  </ul>
+</div>
+<a class="btn btn-primary" routerLink="/create-class">Create class</a>
