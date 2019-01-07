@@ -17,6 +17,8 @@ import { CreateAssignmentComponent } from './create-assignment/create-assignment
 import { ClassDetailComponent } from './class-detail/class-detail.component';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +39,8 @@ import { AssignmentDetailComponent } from './assignment-detail/assignment-detail
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
