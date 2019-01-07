@@ -2,7 +2,7 @@
   <h2>{{ cls.name }}</h2>
 
     <ul class="list-group margin-bottom" *ngIf="cls.assignments.length > 0">
-      <a class="list-group-item list-group-item-action" href="#" *ngFor="let assignment of cls.assignments">{{ assignment.title }}</a>
+      <a class="list-group-item list-group-item-action" routerLink="/assignments/{{ assignment.id }}" *ngFor="let assignment of cls.assignments">{{ assignment.title }}</a>
     </ul>
     <p *ngIf="cls.assignments.length == 0">No assignments yet!</p>
   <a

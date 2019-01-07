@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Assignment } from '../model/assignment';
 import { AssignmentsComponent } from '../assignments/assignments.component';
 import { AssignmentsService } from '../assignments.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-assignment',
@@ -10,17 +10,25 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./create-assignment.component.css']
 })
 export class CreateAssignmentComponent implements OnInit {
-
-  constructor(private route: ActivatedRoute, private assignmentsService: AssignmentsService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private assignmentsService: AssignmentsService,
+    private router: Router
+  ) {}
 
   assignment = new Assignment();
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => this.assignment.classId = params['classId']);
+    this.route.queryParams.subscribe(
+      params => (this.assignment.classId = params['classId'])
+    );
   }
 
   onSubmit() {
-    this.assignmentsService.createAssignment(this.assignment).subscribe(console.log);
+    this.assignmentsService
+      .createAssignment(this.assignment)
+      .subscribe(response =>
+        this.router.navigate(['/classes/' + this.assignment.classId])
+      );
   }
-
 }

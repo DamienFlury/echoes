@@ -21,6 +21,9 @@ export class AssignmentsService {
       }
     );
   }
+  getAssignment(id: number): Observable<Assignment> {
+    return this.http.get<Assignment>(environment.apiUrl + '/api/Assignments/' + id);
+  }
 
   createAssignment(assignment: Assignment) {
     return this.http.post(environment.apiUrl + '/api/Assignments', assignment, {
