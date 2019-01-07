@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,6 +9,7 @@ namespace EchoesServer.Api.Data.Entities
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public DateTime DueTo { get; set; }
         public ICollection<StudentAssignment> StudentAssignments { get; set; }
 
         [Required]
