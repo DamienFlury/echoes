@@ -27,9 +27,7 @@ export class CreateAssignmentComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.dueTo);
     this.assignment.dueTo = new Date(this.dueTo.year, this.dueTo.month - 1, this.dueTo.day);
-    console.log(this.assignment);
     this.assignmentsService
       .createAssignment(this.assignment)
       .subscribe(response =>
