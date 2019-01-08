@@ -21,6 +21,17 @@ export class AssignmentsService {
       }
     );
   }
+
+  getActiveAssignments(): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>(
+      environment.apiUrl + '/api/Assignments/Active',
+      {
+        headers: {
+          Authorization: 'Bearer ' + this.auth.token
+        }
+      }
+    );
+  }
   getAssignment(id: number): Observable<Assignment> {
     return this.http.get<Assignment>(environment.apiUrl + '/api/Assignments/' + id);
   }

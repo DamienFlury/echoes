@@ -25,7 +25,23 @@ namespace EchoesServer.Api.Controllers
         public ActionResult<IEnumerable<Assignment>> Get()
         {
             return Ok(_context.Assignments.Where(assignment
-                => assignment.Class.StudentClasses.Select(sc => sc.Student).Any(student => student.User.UserName == User.Identity.Name) && assignment.DueTo > DateTime.Now).OrderBy(assignment => assignment.DueTo));
+                => assignment.Class.StudentClasses.Select(sc => sc.Student).Any(student => student.User.UserName == User.Identity.Name)));
+        }
+
+        [HttpGet("Active")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public ActionResult<IEnumerable<Assignment>> GetActive()
+        {
+            return Ok(_context.Assignments.Where(assignment
+                => assignment.Class.StudentClasses.Select(sc => sc.Student).Any(student => student.User.UserName == User.Identity.Name) && assignment.DueTo >= DateTime.Now).OrderBy(assignment => assignment.DueTo));
+        }
+
+        [HttpGet("Inactive")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public ActionResult<IEnumerable<Assignment>> GetInactive()
+        {
+            return Ok(_context.Assignments.Where(assignment
+                => assignment.Class.StudentClasses.Select(sc => sc.Student).Any(student => student.User.UserName == User.Identity.Name) && assignment.DueTo < DateTime.Now).OrderBy(assignment => assignment.DueTo));
         }
 
         // GET api/values/5        
