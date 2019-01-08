@@ -16,7 +16,7 @@ import { InvitationsComponent } from './invitations/invitations.component';
 import { InviteComponent } from './invite/invite.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   {
     path: 'assignments',
     component: AssignmentsComponent,

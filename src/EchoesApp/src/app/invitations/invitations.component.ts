@@ -19,6 +19,6 @@ export class InvitationsComponent implements OnInit {
   }
 
   accept(classId: number) {
-    this.invitationsService.accept(classId).subscribe(console.log);
+    this.invitationsService.accept(classId).subscribe(classes => this.classes = classes);
   }
 }
