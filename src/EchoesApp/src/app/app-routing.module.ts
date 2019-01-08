@@ -12,6 +12,7 @@ import { AssignmentDetailComponent } from './assignment-detail/assignment-detail
 import { ActiveAssignmentsComponent } from './active-assignments/active-assignments.component';
 import { InactiveAssignmentsComponent } from './inactive-assignments/inactive-assignments.component';
 import { AllAssignmentsComponent } from './all-assignments/all-assignments.component';
+import { InvitationsComponent } from './invitations/invitations.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'create-class', component: CreateClassComponent },
   { path: 'create-assignment', component: CreateAssignmentComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'account', component: AccountComponent }
+  { path: 'account', component: AccountComponent },
+  { path: 'invitations', component: InvitationsComponent }
 ];
 
 @NgModule({

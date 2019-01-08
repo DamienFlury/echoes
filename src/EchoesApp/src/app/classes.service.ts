@@ -4,29 +4,23 @@ import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Class } from './model/class';
+import { HttpClientService } from './http-client.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassesService {
-
-  constructor(private http: HttpClient, private auth: AuthService) { }
+  constructor(private http: HttpClientService) {}
 
   getClasses(): Observable<Class[]> {
-    return this.http.get<Class[]>(environment.apiUrl + '/api/classes', { headers: {
-      Authorization: 'Bearer ' + this.auth.token
-    }});
+    return this.http.get<Class[]>('/api/classes');
   }
 
   getClassById(id: number): Observable<Class> {
-    return this.http.get<Class>(environment.apiUrl + '/api/classes/' + id, { headers: {
-      Authorization: 'Bearer ' + this.auth.token
-    }});
+    return this.http.get<Class>('/api/classes/' + id);
   }
 
   createClass(cls: Class) {
-    return this.http.post(environment.apiUrl + '/api/classes', cls, { headers: {
-      Authorization: 'Bearer ' + this.auth.token
-    }});
+    return this.http.post('/api/classes', cls);
   }
 }

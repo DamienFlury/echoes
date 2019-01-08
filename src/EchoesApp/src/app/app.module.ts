@@ -22,6 +22,7 @@ import { ActiveAssignmentsComponent } from './active-assignments/active-assignme
 import { InactiveAssignmentsComponent } from './inactive-assignments/inactive-assignments.component';
 import { AllAssignmentsComponent } from './all-assignments/all-assignments.component';
 import { AssignmentsListComponent } from './assignments-list/assignments-list.component';
+import { InvitationsComponent } from './invitations/invitations.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AssignmentsListComponent } from './assignments-list/assignments-list.co
     ActiveAssignmentsComponent,
     InactiveAssignmentsComponent,
     AllAssignmentsComponent,
-    AssignmentsListComponent
+    AssignmentsListComponent,
+    InvitationsComponent
   ],
   imports: [
     BrowserModule,

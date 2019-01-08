@@ -20,6 +20,7 @@ namespace EchoesServer.Api.Data
 
             modelBuilder.Entity<StudentAssignment>().HasKey(sa => new {sa.StudentId, sa.AssignmentId});
             modelBuilder.Entity<StudentClass>().HasKey(sc => new {sc.StudentId, sc.ClassId});
+            modelBuilder.Entity<Invitation>().HasKey(inv => new {inv.StudentId, inv.ClassId});
             
             var students = Enumerable.Range(1, 50).Select(index => new Student
             {
@@ -63,5 +64,6 @@ namespace EchoesServer.Api.Data
         public DbSet<Class> Classes { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentClass> StudentClasses {get; set;}
+        public DbSet<Invitation> Invitations { get; set; }
     }
 }
