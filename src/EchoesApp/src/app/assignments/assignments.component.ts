@@ -7,14 +7,6 @@ import { Assignment } from '../model/assignment';
   templateUrl: './assignments.component.html',
   styleUrls: ['./assignments.component.css']
 })
-export class AssignmentsComponent implements OnInit {
-  constructor(private assignmentsService: AssignmentsService) {}
+export class AssignmentsComponent {
 
-  assignments: Assignment[];
-
-  ngOnInit() {
-    this.assignmentsService
-      .getActiveAssignments()
-      .subscribe(data => this.assignments = data);
-  }
 }

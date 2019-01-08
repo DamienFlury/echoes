@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Echoes</a>
+  <a class="navbar-brand" routerLink="home">Echoes</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -15,25 +15,37 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink=""
+        <a class="nav-link" routerLink="home" routerLinkActive="active"
           >Home <span class="sr-only">(current)</span></a
         >
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="auth.isLoggedIn" routerLink="assignments"
+        <a
+          class="nav-link"
+          *ngIf="auth.isLoggedIn"
+          routerLink="assignments/active"
+          routerLinkActive="active"
           >My Assignments</a
         >
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="auth.isLoggedIn" routerLink="classes"
+        <a
+          class="nav-link"
+          *ngIf="auth.isLoggedIn"
+          routerLink="classes"
+          routerLinkActive="active"
           >My Classes</a
         >
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item">
-        <a class="nav-link" routerLink="login" *ngIf="!auth.isLoggedIn">Login</a>
-        <a href="#" class="nav-link" (click)="logout()" *ngIf="auth.isLoggedIn">Logout</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="login" *ngIf="!auth.isLoggedIn"
+          >Login</a
+        >
+        <a class="nav-link" (click)="logout()" *ngIf="auth.isLoggedIn"
+          >Logout</a
+        >
       </li>
     </ul>
   </div>

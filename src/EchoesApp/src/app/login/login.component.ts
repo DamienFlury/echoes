@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
           this.passwordFormControl.value
         )
       )
-      .subscribe(success => this.router.navigate(['']),
+      .subscribe(success => this.router.navigate(['/home']),
       error => this.showError = true);
     console.log(this.emailFormControl.value, this.passwordFormControl.value);
   }

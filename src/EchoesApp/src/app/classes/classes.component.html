@@ -1,3 +1,5 @@
+<h1>Classes</h1>
+
 <div *ngIf="classes" class="margin-bottom">
   <ul class="list-group">
     <a *ngFor="let cls of classes" class="list-group-item list-group-item-action" [routerLink]="cls.id">{{ cls.name }}</a>

@@ -9,10 +9,21 @@ import { CreateClassComponent } from './create-class/create-class.component';
 import { CreateAssignmentComponent } from './create-assignment/create-assignment.component';
 import { ClassDetailComponent } from './class-detail/class-detail.component';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
+import { ActiveAssignmentsComponent } from './active-assignments/active-assignments.component';
+import { InactiveAssignmentsComponent } from './inactive-assignments/inactive-assignments.component';
+import { AllAssignmentsComponent } from './all-assignments/all-assignments.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'assignments', component: AssignmentsComponent },
+  { path: 'home', component: HomeComponent },
+  {
+    path: 'assignments',
+    component: AssignmentsComponent,
+    children: [
+      { path: 'active', component: ActiveAssignmentsComponent },
+      { path: 'inactive', component: InactiveAssignmentsComponent },
+      { path: 'all', component: AllAssignmentsComponent }
+    ]
+  },
   { path: 'assignments/:id', component: AssignmentDetailComponent },
   { path: 'classes', component: ClassesComponent },
   { path: 'classes/:id', component: ClassDetailComponent },

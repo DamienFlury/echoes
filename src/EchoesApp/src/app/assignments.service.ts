@@ -32,6 +32,16 @@ export class AssignmentsService {
       }
     );
   }
+  getInactiveAssignments(): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>(
+      environment.apiUrl + '/api/Assignments/Inactive',
+      {
+        headers: {
+          Authorization: 'Bearer ' + this.auth.token
+        }
+      }
+    );
+  }
   getAssignment(id: number): Observable<Assignment> {
     return this.http.get<Assignment>(environment.apiUrl + '/api/Assignments/' + id);
   }

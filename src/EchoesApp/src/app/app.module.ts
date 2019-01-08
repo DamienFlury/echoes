@@ -18,6 +18,10 @@ import { ClassDetailComponent } from './class-detail/class-detail.component';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ActiveAssignmentsComponent } from './active-assignments/active-assignments.component';
+import { InactiveAssignmentsComponent } from './inactive-assignments/inactive-assignments.component';
+import { AllAssignmentsComponent } from './all-assignments/all-assignments.component';
+import { AssignmentsListComponent } from './assignments-list/assignments-list.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CreateClassComponent,
     CreateAssignmentComponent,
     ClassDetailComponent,
-    AssignmentDetailComponent
+    AssignmentDetailComponent,
+    ActiveAssignmentsComponent,
+    InactiveAssignmentsComponent,
+    AllAssignmentsComponent,
+    AssignmentsListComponent
   ],
   imports: [
     BrowserModule,
