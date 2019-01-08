@@ -51,5 +51,26 @@ namespace EchoesServer.Api.Controllers
             return Ok(_context.Invitations.Where(inv => inv.StudentId == student.Id).Include(inv => inv.Class)
                 .Select(inv => inv.Class));
         }
+
+        [HttpGet("accept/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public ActionResult<IEnumerable<Invitation>> Accept(int id)
+        {
+            var student = _context.Students.SingleOrDefault(stud => stud.User.UserName == User.Identity.Name);
+            if (student is null) return BadRequest();
+
+            _context.StudentClasses.Add(new StudentClass
+            {
+                StudentId = student.Id,
+                ClassId = id
+            });
+
+            var invitationToRemove = _context.Invitations.SingleOrDefault(inv => inv.ClassId == id && inv.StudentId == student.Id);
+            if (invitationToRemove is null) return BadRequest();
+            _context.Invitations.Remove(invitationToRemove);
+
+            _context.SaveChanges();
+            return Get();
+        }
     }
 }

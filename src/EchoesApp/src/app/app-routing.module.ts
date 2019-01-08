@@ -13,6 +13,7 @@ import { ActiveAssignmentsComponent } from './active-assignments/active-assignme
 import { InactiveAssignmentsComponent } from './inactive-assignments/inactive-assignments.component';
 import { AllAssignmentsComponent } from './all-assignments/all-assignments.component';
 import { InvitationsComponent } from './invitations/invitations.component';
+import { InviteComponent } from './invite/invite.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'create-assignment', component: CreateAssignmentComponent },
   { path: 'login', component: LoginComponent },
   { path: 'account', component: AccountComponent },
-  { path: 'invitations', component: InvitationsComponent }
+  { path: 'invitations', component: InvitationsComponent },
+  { path: 'invite', component: InviteComponent }
 ];
 
 @NgModule({

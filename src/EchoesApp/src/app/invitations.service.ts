@@ -10,8 +10,18 @@ import { map } from 'rxjs/operators';
 export class InvitationsService {
   constructor(private http: HttpClientService) {}
 
-  getInvitedClasses(): Observable<Class[]> {
+  invite(classId: number, email: string) {
+    return this.http.post('/api/invitations', {
+      classId: classId,
+      email: email
+    });
+  }
+
+  getReceivedClasses(): Observable<Class[]> {
     return this.http.get('/api/invitations');
   }
 
+  accept(classId: number): Observable<Class[]> {
+    return this.http.get('/api/invitations/accept/' + classId);
+  }
 }
