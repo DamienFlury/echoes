@@ -62,9 +62,36 @@ namespace EchoesServer.Api.Controllers
             // if (classId == 0) return BadRequest ();
             // var student = await _context.Students.SingleOrDefaultAsync(stud => stud.User.UserName == User.Identity.Name);
             // if(!student.StudentClasses.Any(sc => sc.StudentId == student.Id && sc.ClassId == classId)) return BadRequest();
+            var studentId =
+                (await _context.Students.SingleOrDefaultAsync(student => student.User.UserName == User.Identity.Name))?.Id;
+
+            if (studentId is null) return BadRequest();
+
+            assignment.StudentId = studentId.Value;
             await _context.Assignments.AddAsync(assignment);
             await _context.SaveChangesAsync();
             return Ok(assignment);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var student =
+                await _context.Students.SingleOrDefaultAsync(stud => stud.User.UserName == User.Identity.Name);
+
+            if (student is null) return BadRequest();
+
+            var assignment = await _context.Assignments.SingleOrDefaultAsync(a => a.Id == id );
+
+            if (assignment is null) return BadRequest();
+
+            if (assignment.StudentId != student.Id) return BadRequest();
+
+            _context.Assignments.Remove(assignment);
+            await _context.SaveChangesAsync();
+            
+            return Ok();
         }
     }
 }
