@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EchoesServer.Api.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20190110073951_Initial")]
+    [Migration("20190110084340_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,9 +77,6 @@ namespace EchoesServer.Api.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<DateTime>("DueTo");
 
                     b.Property<int>("StudentId");
@@ -93,8 +90,6 @@ namespace EchoesServer.Api.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("Assignments");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Assignment");
                 });
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.Class", b =>
@@ -271,20 +266,6 @@ namespace EchoesServer.Api.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("EchoesServer.Api.Data.Entities.Exam", b =>
-                {
-                    b.HasBaseType("EchoesServer.Api.Data.Entities.Assignment");
-
-                    b.HasDiscriminator().HasValue("Exam");
-                });
-
-            modelBuilder.Entity("EchoesServer.Api.Data.Entities.Homework", b =>
-                {
-                    b.HasBaseType("EchoesServer.Api.Data.Entities.Assignment");
-
-                    b.HasDiscriminator().HasValue("Homework");
                 });
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.Assignment", b =>

@@ -196,8 +196,7 @@ namespace EchoesServer.Api.Migrations
                     Description = table.Column<string>(nullable: true),
                     DueTo = table.Column<DateTime>(nullable: false),
                     ClassId = table.Column<int>(nullable: false),
-                    StudentId = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false)
+                    StudentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

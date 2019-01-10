@@ -24,8 +24,7 @@ namespace EchoesServer.Api.Data
         }
 
         public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<Exam> Exams { get; set; }
-        public DbSet<Homework> Homeworks { get; set; }
+
         public DbSet<Class> Classes { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentClass> StudentClasses {get; set;}
