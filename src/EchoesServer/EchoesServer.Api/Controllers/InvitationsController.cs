@@ -12,6 +12,7 @@ namespace EchoesServer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class InvitationsController : ControllerBase
     {
         private readonly SchoolContext _context;
@@ -23,7 +24,6 @@ namespace EchoesServer.Api.Controllers
 
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> InviteAsync(InvitationByEmail invitation)
         {
             var invitedStudent = _context.Students.SingleOrDefault(student => student.User.Email == invitation.Email);
@@ -42,7 +42,6 @@ namespace EchoesServer.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult<IEnumerable<Invitation>> Get()
         {
             var student = _context.Students.SingleOrDefault(stud => stud.User.UserName == User.Identity.Name);
@@ -53,7 +52,6 @@ namespace EchoesServer.Api.Controllers
         }
 
         [HttpGet("accept/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult<IEnumerable<Invitation>> Accept(int id)
         {
             var student = _context.Students.SingleOrDefault(stud => stud.User.UserName == User.Identity.Name);

@@ -61,7 +61,7 @@ namespace EchoesServer.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public ActionResult<Student> Get()
         {
             return Ok(_context.Students.SingleOrDefault(stud => stud.User.UserName == User.Identity.Name));

@@ -13,7 +13,7 @@ namespace EchoesServer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public class AssignmentsController : ControllerBase
     {
         private readonly SchoolContext _context;

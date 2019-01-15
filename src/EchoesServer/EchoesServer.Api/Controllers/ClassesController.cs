@@ -4,17 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 
 namespace EchoesServer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClassesController : ControllerBase
     {
         private readonly SchoolContext _context;
@@ -26,21 +25,24 @@ namespace EchoesServer.Api.Controllers
             _userManager = userManager;
         }
 
+        private IQueryable<Class> GetAll() => _context.Classes
+            .Where(cls => cls.StudentClasses.Select(sc => sc.Student)
+                .Any(student => student.User.UserName == User.Identity.Name));
+
         // GET api/values
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public ActionResult<IEnumerable<Class>> Get()
-        {
-            return Ok(_context.Classes.Where(cls => cls.StudentClasses.Select(sc => sc.Student).Any(student => student.User.UserName == User.Identity.Name)));
-        }
+        public ActionResult<IEnumerable<Class>> Get() => Ok(GetAll());
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<object>> Get(int id) =>
-            await _context.Classes.Include(cls => cls.Assignments).SingleOrDefaultAsync(cls => cls.Id == id);
+        public async Task<ActionResult<Class>> Get(int id)
+        {
+            var cls = await GetAll().Include(c => c.Assignments).SingleOrDefaultAsync(c => c.Id == id);
+            if (cls is null) return Unauthorized();
+            return cls;
+        }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Create([FromBody] Class cls)
         {
             var student = await _context.Students.SingleOrDefaultAsync(std => std.User.UserName == User.Identity.Name);
