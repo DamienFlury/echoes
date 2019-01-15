@@ -35,8 +35,8 @@
     können.
     \section{Technologien}
     Für die Webapplikation verwenden wir verschiedene Frameworks. Serverseitig bieten wir
-    eine REST API mit ASP.NET Core \cite{Dotnet} an, Clientseitig konsumieren wir diese API mit dem Single
-    Page Application (SPA) Framework Angular \cite{Angular}.
+    eine REST API mit ASP.NET Core an, Clientseitig konsumieren wir diese API mit dem Single
+    Page Application (SPA) Framework Angular.
     \subsection{Backend}
     \begin{itemize}
         \item ASP.NET Core 2.1
@@ -47,11 +47,13 @@
     \subsection{Frontend}
     \begin{itemize}
     \item Angular 7
+    \item Typescript
+    \item Bootstrap 4
     \end{itemize}
 
     \section{Datenbank und konzeptionelles Datenmodell}
     Wie in Abbildung \ref{erd} ersichtlich, verwenden wir eine relationale Datenbank. Für die Anbindung an die Applikation
-    verwenden wir Microsofts Entity Framework Core. Die Tabelle \emph{ApplicationUser}
+    verwenden wir Entity Framework Core. Die Tabelle \emph{ApplicationUser}
     ist für das Login zuständig und besitzt eine 1-1 Beziehung mit \emph{Student}.
     Jeder Student gehört einer oder keiner \emph{Class} (Schulklasse) an. Eine Schulklasse besitzt
     keine oder mehrere \emph{Assignments}, also Aufträge. Die Tabelle \emph{StudentAssignment}
@@ -63,7 +65,12 @@
         \label{erd}
     \end{figure}
     \section{Endprodukt}
-    Bis jetzt hat Echoes einige nützliche Funktionen für Schüler und Lehrer. Sowohl Schüler als auch Lehrer können sogenannte Assignments in jeder Klasse erstellen und ein Datum dazusetzen. Diese Assignments werden danach auf dem Tab \emph{My Assignments} angezeigt. Wenn das Datum des Assignments abgelaufen ist, wird es im Subtab \emph{Inactive} angezeigt. Diese Assignments werden zusätzlich nur angezeigt, wenn der User sich in der Klasse befinded, in der das Assignment erstellt wurde. Klassen kann man sehr einfach erstellen und gewisse Schüler mit ihrer eingegebenen Email-Addresse zur Klasse einladen. Wird ein Schüler eingeladen, kann er die Einladung im \emph{Invitations} Tab finden und akzeptieren.
+    Bis jetzt hat Echoes einige nützliche Funktionen für Schüler und Lehrer. Sowohl Schüler als auch Lehrer können sogenannte Assignments 
+    in jeder Klasse erstellen und ein Datum dazusetzen. Diese Assignments werden danach auf dem Tab \emph{My Assignments} angezeigt. 
+    Wenn das Datum des Assignments abgelaufen ist, wird es im Subtab \emph{Inactive} angezeigt. Diese Assignments werden zusätzlich nur angezeigt, 
+    wenn der User sich in der Klasse befindet, in der das Assignment erstellt wurde. Klassen kann man sehr einfach erstellen und gewisse Schüler 
+    mit ihrer eingegebenen Email-Adresse zur Klasse einladen. Wird ein Schüler eingeladen, kann er die Einladung im \emph{Invitations} Tab 
+    finden und akzeptieren.
     
     \section{Zukünftige Erweiterungen und Updates}
     Wir haben definitiv noch weitere Ideen, die wir bei Echoes einbauen können. Da jetzt der grundlegende Baustein des Projektes gelegt ist, kann man noch viele zukünftige Updates darauf aufbauen und erweitern. Wir planten, dass Schüler abhaken können, ob sie ein Assignment schon fertiggestellt haben und dass diese Liste von Schülern für den Ersteller des Assignments sichtbar ist.
