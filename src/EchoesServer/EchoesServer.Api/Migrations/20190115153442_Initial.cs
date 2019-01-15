@@ -265,7 +265,7 @@ namespace EchoesServer.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentAssignment",
+                name: "StudentAssignments",
                 columns: table => new
                 {
                     StudentId = table.Column<int>(nullable: false),
@@ -273,15 +273,15 @@ namespace EchoesServer.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentAssignment", x => new { x.StudentId, x.AssignmentId });
+                    table.PrimaryKey("PK_StudentAssignments", x => new { x.StudentId, x.AssignmentId });
                     table.ForeignKey(
-                        name: "FK_StudentAssignment_Assignments_AssignmentId",
+                        name: "FK_StudentAssignments_Assignments_AssignmentId",
                         column: x => x.AssignmentId,
                         principalTable: "Assignments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentAssignment_Students_StudentId",
+                        name: "FK_StudentAssignments_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -341,8 +341,8 @@ namespace EchoesServer.Api.Migrations
                 column: "ClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentAssignment_AssignmentId",
-                table: "StudentAssignment",
+                name: "IX_StudentAssignments_AssignmentId",
+                table: "StudentAssignments",
                 column: "AssignmentId");
 
             migrationBuilder.CreateIndex(
@@ -377,7 +377,7 @@ namespace EchoesServer.Api.Migrations
                 name: "Invitations");
 
             migrationBuilder.DropTable(
-                name: "StudentAssignment");
+                name: "StudentAssignments");
 
             migrationBuilder.DropTable(
                 name: "StudentClasses");

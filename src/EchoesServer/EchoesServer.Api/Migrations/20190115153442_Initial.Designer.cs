@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EchoesServer.Api.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20190115144228_UseMariaDb")]
-    partial class UseMariaDb
+    [Migration("20190115153442_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -146,7 +146,7 @@ namespace EchoesServer.Api.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("StudentAssignment");
+                    b.ToTable("StudentAssignments");
                 });
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.StudentClass", b =>

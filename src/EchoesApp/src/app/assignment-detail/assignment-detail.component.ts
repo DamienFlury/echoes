@@ -27,6 +27,15 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   delete() {
-    this.assignmentsService.deleteAssignemnt(this.assignment.id).subscribe(result => this.router.navigate(['/assignments/active']), error => this.showError = true);
+    this.assignmentsService
+      .deleteAssignemnt(this.assignment.id)
+      .subscribe(
+        result => this.router.navigate(['/assignments/active']),
+        error => (this.showError = true)
+      );
+  }
+
+  setToDone() {
+    this.assignmentsService.setAssignmentToDone(this.assignment.id).subscribe(console.log);
   }
 }

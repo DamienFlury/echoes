@@ -144,7 +144,7 @@ namespace EchoesServer.Api.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("StudentAssignment");
+                    b.ToTable("StudentAssignments");
                 });
 
             modelBuilder.Entity("EchoesServer.Api.Data.Entities.StudentClass", b =>

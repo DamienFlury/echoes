@@ -31,4 +31,7 @@ export class AssignmentsService {
   deleteAssignemnt(id: number) {
     return this.http.delete('/api/Assignments/', id);
   }
+  setAssignmentToDone(id: number) {
+    return this.http.post('/api/Assignments/Done', id);
+  }
 }

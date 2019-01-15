@@ -24,6 +24,9 @@ namespace EchoesServer.Api.Controllers
             => assignment.Class.StudentClasses.Select(sc => sc.Student)
                 .Any(student => student.User.UserName == User.Identity.Name));
 
+        private IQueryable<Assignment> GetActiveAssignments() => GetAll().Where(assignment => assignment.DueTo >= DateTime.Now)
+            .OrderBy(assignment => assignment.DueTo);
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Assignment>> Get() => Ok(GetAll());
@@ -31,9 +34,17 @@ namespace EchoesServer.Api.Controllers
         [HttpGet("Active")]
         public ActionResult<IEnumerable<Assignment>> GetActive()
         {
-            return Ok(GetAll().Where(assignment =>
-                       assignment.DueTo >= DateTime.Now)
-                .OrderBy(assignment => assignment.DueTo));
+            return Ok(GetActiveAssignments());
+        }
+
+        [HttpGet("Active/Done")]
+        public async Task<ActionResult<IEnumerable<Assignment>>> GetDone()
+        {
+            var student = await _context.Students.SingleOrDefaultAsync(s => s.User.UserName == User.Identity.Name);
+            if (student is null) return BadRequest();
+            return Ok(GetActiveAssignments()
+                .Where(assignment => _context.StudentAssignments
+                    .Any(sa => sa.AssignmentId == assignment.Id && sa.StudentId == student.Id)));
         }
 
         [HttpGet("Inactive")]
@@ -53,6 +64,7 @@ namespace EchoesServer.Api.Controllers
             return assignment;
         }
 
+        [HttpPost]
         public async Task<ActionResult> Post([FromBody] Assignment assignment)
         {
             // var classId = assignment.ClassId;
@@ -87,6 +99,22 @@ namespace EchoesServer.Api.Controllers
             _context.Assignments.Remove(assignment);
             await _context.SaveChangesAsync();
 
+            return Ok();
+        }
+
+        [HttpPost("Done")]
+        public async Task<IActionResult> SetToDone([FromBody] int id)
+        {
+            var student = await _context.Students.SingleOrDefaultAsync(s => s.User.UserName == User.Identity.Name);
+            if (student is null) return BadRequest();
+            var assignment = await _context.Assignments.SingleOrDefaultAsync(a => a.Id == id);
+            if (assignment is null) return BadRequest();
+            await _context.StudentAssignments.AddAsync(new StudentAssignment
+            {
+                StudentId = student.Id,
+                AssignmentId = id
+            });
+            await _context.SaveChangesAsync();
             return Ok();
         }
     }
