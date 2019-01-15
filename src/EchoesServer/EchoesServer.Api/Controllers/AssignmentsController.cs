@@ -13,49 +13,46 @@ namespace EchoesServer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AssignmentsController : ControllerBase
     {
         private readonly SchoolContext _context;
 
         public AssignmentsController(SchoolContext context) => _context = context;
 
+        private IQueryable<Assignment> GetAll() => _context.Assignments.Where(assignment
+            => assignment.Class.StudentClasses.Select(sc => sc.Student)
+                .Any(student => student.User.UserName == User.Identity.Name));
+
         // GET api/values
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public ActionResult<IEnumerable<Assignment>> Get()
-        {
-            return Ok(_context.Assignments.Where(assignment
-                => assignment.Class.StudentClasses.Select(sc => sc.Student)
-                    .Any(student => student.User.UserName == User.Identity.Name)));
-        }
+        public ActionResult<IEnumerable<Assignment>> Get() => Ok(GetAll());
 
         [HttpGet("Active")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult<IEnumerable<Assignment>> GetActive()
         {
-            return Ok(_context.Assignments.Where(assignment
-                    => assignment.Class.StudentClasses.Select(sc => sc.Student)
-                           .Any(student => student.User.UserName == User.Identity.Name) &&
+            return Ok(GetAll().Where(assignment =>
                        assignment.DueTo >= DateTime.Now)
                 .OrderBy(assignment => assignment.DueTo));
         }
 
         [HttpGet("Inactive")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult<IEnumerable<Assignment>> GetInactive()
         {
-            return Ok(_context.Assignments.Where(assignment
-                    => assignment.Class.StudentClasses.Select(sc => sc.Student)
-                           .Any(student => student.User.UserName == User.Identity.Name) &&
+            return Ok(GetAll().Where(assignment =>
                        assignment.DueTo < DateTime.Now)
                 .OrderBy(assignment => assignment.DueTo));
         }
 
         // GET api/values/5        
         [HttpGet("{id}")]
-        public ActionResult<Assignment> Get(int id) => _context.Assignments.Find(id);
+        public async Task<ActionResult<Assignment>> GetAsync(int id)
+        {
+            var assignment = await GetAll().SingleOrDefaultAsync(a => a.Id == id);
+            if (assignment is null) return Unauthorized();
+            return assignment;
+        }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Post([FromBody] Assignment assignment)
         {
             // var classId = assignment.ClassId;
@@ -74,7 +71,6 @@ namespace EchoesServer.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Delete(int id)
         {
             var student =
@@ -82,7 +78,7 @@ namespace EchoesServer.Api.Controllers
 
             if (student is null) return BadRequest();
 
-            var assignment = await _context.Assignments.SingleOrDefaultAsync(a => a.Id == id );
+            var assignment = await _context.Assignments.SingleOrDefaultAsync(a => a.Id == id);
 
             if (assignment is null) return BadRequest();
 
@@ -90,7 +86,7 @@ namespace EchoesServer.Api.Controllers
 
             _context.Assignments.Remove(assignment);
             await _context.SaveChangesAsync();
-            
+
             return Ok();
         }
     }

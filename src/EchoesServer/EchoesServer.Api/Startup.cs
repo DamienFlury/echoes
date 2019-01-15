@@ -43,7 +43,7 @@ namespace EchoesServer.Api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
                 });
 
-            services.AddDbContext<SchoolContext>(options => options.UseMySql("server=localhost;database=echoes;user=damien;"));
+            services.AddDbContext<SchoolContext>(options => options.UseMySql(Configuration.GetConnectionString("MySql")));
 
             services.AddCors();
 
