@@ -1,0 +1,51 @@
+<h1>Create Account</h1>
+<form (submit)="onSubmit()">
+  <div class="form-group">
+    <input
+      [formControl]="emailFormControl"
+      class="form-control"
+      placeholder="Email"
+      type="email"
+      name="email"
+      required
+    />
+    <div
+      *ngIf="
+        emailFormControl.hasError('email') &&
+        !emailFormControl.hasError('required')
+      "
+    >
+      Please enter a valid email address
+    </div>
+  </div>
+  <div class="form-group">
+    <input
+      [formControl]="passwordFormControl"
+      class="form-control"
+      placeholder="Password"
+      type="password"
+      name="password"
+      required
+    />
+    <div *ngIf="passwordFormControl.hasError('required')">
+      Please enter a password
+    </div>
+  </div>
+  <div class="form-group">
+    <input
+      [formControl]="passwordRepeatFormControl"
+      class="form-control"
+      placeholder="Repeat Password"
+      type="password"
+      name="password"
+      required
+    />
+    <div *ngIf="passwordFormControl.hasError('required')">
+      Please enter a password
+    </div>
+  </div>
+  <button class="btn btn-success" type="submit">Login</button>
+</form>
+<div *ngIf="showError" class="error">
+  This username doesn't exist or this password is wrong.
+</div>

@@ -1,0 +1,9 @@
+<div *ngIf="assignment" class="card">
+
+  <div class="card-body">
+    <h1 class="card-title">{{ assignment.title}}</h1>
+    <p class="card-text">{{ assignment.description }}</p>
+    <button class="btn btn-danger" (click)="delete()">Delete</button>
+    <div class="alert alert-danger" *ngIf="showError">You didn't create the assignment, hence you can't delete it :(</div>
+  </div>
+</div>
