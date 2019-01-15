@@ -31,6 +31,5 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(success => this.router.navigate(['/']),
       error => this.showError = true);
-    console.log(this.emailFormControl.value, this.passwordFormControl.value);
   }
 }

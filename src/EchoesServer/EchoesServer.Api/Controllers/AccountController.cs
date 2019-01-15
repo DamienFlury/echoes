@@ -40,13 +40,23 @@ namespace EchoesServer.Api.Controllers
 
             var student = new Student
             {
+                Id = _context.Students.Count() + 1,
                 FirstName = user.Email,
                 LastName = user.Email,
                 User = user
             };
 
             await _context.Students.AddAsync(student);
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
             return Created("User created", new { user.Email });
         }
 
