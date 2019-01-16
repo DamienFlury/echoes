@@ -25,9 +25,12 @@ namespace EchoesServer.Api.Controllers
             _userManager = userManager;
         }
 
-        private IQueryable<Class> GetAll() => _context.Classes
-            .Where(cls => cls.StudentClasses.Select(sc => sc.Student)
-                .Any(student => student.User.UserName == User.Identity.Name));
+        private IQueryable<Class> GetAll() =>
+            from cls in _context.Classes
+            join sc in _context.StudentClasses on cls.Id equals sc.ClassId
+            join student in _context.Students on sc.StudentId equals student.Id
+            where student.User.UserName == User.Identity.Name
+            select cls;
 
         // GET api/values
         [HttpGet]

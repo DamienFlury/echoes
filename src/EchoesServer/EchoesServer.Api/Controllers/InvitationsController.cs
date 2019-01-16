@@ -47,8 +47,11 @@ namespace EchoesServer.Api.Controllers
             var student = _context.Students.SingleOrDefault(stud => stud.User.UserName == User.Identity.Name);
             if (student is null) return BadRequest();
 
-            return Ok(_context.Invitations.Where(inv => inv.StudentId == student.Id).Include(inv => inv.Class)
-                .Select(inv => inv.Class));
+            var invitations = from invitation in _context.Invitations
+                where invitation.StudentId == student.Id
+                select invitation.Class;
+
+            return Ok(invitations);
         }
 
         [HttpGet("accept/{id}")]

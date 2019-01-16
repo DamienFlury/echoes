@@ -20,12 +20,20 @@ namespace EchoesServer.Api.Controllers
 
         public AssignmentsController(SchoolContext context) => _context = context;
 
-        private IQueryable<Assignment> GetAll() => _context.Assignments.Where(assignment
-            => assignment.Class.StudentClasses.Select(sc => sc.Student)
-                .Any(student => student.User.UserName == User.Identity.Name));
+        private IQueryable<Assignment> GetAll() =>
+            from assignment in _context.Assignments
+            join cls in _context.Classes on assignment.ClassId equals cls.Id
+            join sc in _context.StudentClasses on cls.Id equals sc.ClassId
+            join student in _context.Students on sc.StudentId equals student.Id
+            where student.User.UserName == User.Identity.Name
+            select assignment;
 
-        private IQueryable<Assignment> GetActiveAssignments() => GetAll().Where(assignment => assignment.DueTo >= DateTime.Now)
-            .OrderBy(assignment => assignment.DueTo);
+
+        private IQueryable<Assignment> GetActiveAssignments() =>
+            from assignment in GetAll()
+            where assignment.DueTo >= DateTime.Now
+            orderby assignment.DueTo
+            select assignment;
 
         // GET api/values
         [HttpGet]
@@ -42,17 +50,27 @@ namespace EchoesServer.Api.Controllers
         {
             var student = await _context.Students.SingleOrDefaultAsync(s => s.User.UserName == User.Identity.Name);
             if (student is null) return BadRequest();
-            return Ok(GetActiveAssignments()
-                .Where(assignment => _context.StudentAssignments
-                    .Any(sa => sa.AssignmentId == assignment.Id && sa.StudentId == student.Id)));
+
+            var assignments = from assignment in GetActiveAssignments()
+                join sa in _context.StudentAssignments on assignment.Id equals sa.AssignmentId
+                join stud in _context.Students on sa.StudentId equals stud.Id
+                select assignment;
+
+            return Ok(assignments);
+            //GetActiveAssignments()
+            //.Where(assignment => _context.StudentAssignments
+            //    .Any(sa => sa.AssignmentId == assignment.Id && sa.StudentId == student.Id)));
         }
 
         [HttpGet("Inactive")]
         public ActionResult<IEnumerable<Assignment>> GetInactive()
         {
-            return Ok(GetAll().Where(assignment =>
-                       assignment.DueTo < DateTime.Now)
-                .OrderBy(assignment => assignment.DueTo));
+            var assignments = from assignment in GetAll()
+                where assignment.DueTo < DateTime.Now
+                orderby assignment.DueTo
+                select assignment;
+
+            return Ok(assignments);
         }
 
         // GET api/values/5        
