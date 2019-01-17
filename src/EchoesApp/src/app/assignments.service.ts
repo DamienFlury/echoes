@@ -34,4 +34,7 @@ export class AssignmentsService {
   setAssignmentToDone(id: number) {
     return this.http.post('/api/Assignments/Done', id);
   }
+  updateAssignment(id: number, assignment: Assignment) {
+    return this.http.put('api/Assignments/' + id, assignment);
+  }
 }

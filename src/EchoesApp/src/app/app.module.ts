@@ -24,6 +24,7 @@ import { AllAssignmentsComponent } from './all-assignments/all-assignments.compo
 import { AssignmentsListComponent } from './assignments-list/assignments-list.component';
 import { InvitationsComponent } from './invitations/invitations.component';
 import { InviteComponent } from './invite/invite.component';
+import { EditAssignmentComponent } from './edit-assignment/edit-assignment.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { InviteComponent } from './invite/invite.component';
     AllAssignmentsComponent,
     AssignmentsListComponent,
     InvitationsComponent,
-    InviteComponent
+    InviteComponent,
+    EditAssignmentComponent
   ],
   imports: [
     BrowserModule,

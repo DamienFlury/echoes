@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens.Saml2;
 
 namespace EchoesServer.Api.Controllers
 {
@@ -35,6 +36,12 @@ namespace EchoesServer.Api.Controllers
             orderby assignment.DueTo
             select assignment;
 
+        private IQueryable<Assignment> GetActiveDoneAssignments() =>
+            from assignment in GetActiveAssignments()
+            join sa in _context.StudentAssignments on assignment.Id equals sa.AssignmentId
+            join student in _context.Students on sa.StudentId equals student.Id
+            select assignment;
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Assignment>> Get() => Ok(GetAll());
@@ -46,21 +53,11 @@ namespace EchoesServer.Api.Controllers
         }
 
         [HttpGet("Active/Done")]
-        public async Task<ActionResult<IEnumerable<Assignment>>> GetDone()
-        {
-            var student = await _context.Students.SingleOrDefaultAsync(s => s.User.UserName == User.Identity.Name);
-            if (student is null) return BadRequest();
+        public ActionResult<IEnumerable<Assignment>> GetDone() => Ok(GetActiveDoneAssignments());
 
-            var assignments = from assignment in GetActiveAssignments()
-                join sa in _context.StudentAssignments on assignment.Id equals sa.AssignmentId
-                join stud in _context.Students on sa.StudentId equals stud.Id
-                select assignment;
-
-            return Ok(assignments);
-            //GetActiveAssignments()
-            //.Where(assignment => _context.StudentAssignments
-            //    .Any(sa => sa.AssignmentId == assignment.Id && sa.StudentId == student.Id)));
-        }
+        [HttpGet("Active/NotDone")]
+        public ActionResult<IEnumerable<Assignment>> GetNotDone() =>
+            Ok(GetActiveAssignments().Except(GetActiveDoneAssignments()));
 
         [HttpGet("Inactive")]
         public ActionResult<IEnumerable<Assignment>> GetInactive()
@@ -118,6 +115,28 @@ namespace EchoesServer.Api.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] Assignment assignment)
+        {
+            
+            if (assignment is null) return BadRequest();
+            
+            if (id != assignment.Id) return BadRequest();
+
+            var student =
+                await _context.Students.SingleOrDefaultAsync(stud => stud.User.UserName == User.Identity.Name);
+
+            if (student is null) return BadRequest();
+
+            if (assignment.StudentId != student.Id) return BadRequest();
+
+
+            _context.Entry(assignment).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
+
         }
 
         [HttpPost("Done")]
