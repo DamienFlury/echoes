@@ -13,7 +13,7 @@ export class AssignmentDetailComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   showError = false;
 
@@ -33,6 +33,11 @@ export class AssignmentDetailComponent implements OnInit {
         result => this.router.navigate(['/assignments/active']),
         error => (this.showError = true)
       );
+  }
+
+  edit() {
+    this.assignmentsService.updateAssignment(this.assignment.id, this.assignment)
+      .subscribe(_ => this.router.navigate(['/assignments/active']));
   }
 
   setToDone() {
