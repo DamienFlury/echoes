@@ -1,5 +1,16 @@
-<div class="list-group" *ngIf="assignments">
-  <a class="list-group-item list-group-item-action" *ngFor="let assignment of assignments" routerLink="../{{ assignment.id }}">
-    {{ assignment.title }}
-  </a>
-</div>
+<table class="table table-hover table-striped table-dark" *ngIf="assignments">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Due To</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let assignment of assignments" routerLink="../{{ assignment.id }}" class="clickable">
+      <td>{{ assignment.title }}</td>
+      <td>{{ assignment.description }}</td>
+      <td>{{ assignment.dueTo | date }}</td>
+    </tr>
+  </tbody>
+</table>

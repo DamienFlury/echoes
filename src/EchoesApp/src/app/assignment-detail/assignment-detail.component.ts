@@ -13,7 +13,7 @@ export class AssignmentDetailComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   showError = false;
 
@@ -22,7 +22,10 @@ export class AssignmentDetailComponent implements OnInit {
     this.route.params.subscribe(params =>
       this.assignmentsService
         .getAssignment(+params['id'])
-        .subscribe(assignment => (this.assignment = assignment))
+        .subscribe(assignment => {
+          this.assignment = assignment;
+          this.assignment.dueTo = new Date(this.assignment.dueTo);
+        })
     );
   }
 
@@ -36,11 +39,14 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   edit() {
-    this.assignmentsService.updateAssignment(this.assignment.id, this.assignment)
+    this.assignmentsService
+      .updateAssignment(this.assignment.id, this.assignment)
       .subscribe(_ => this.router.navigate(['/assignments/active']));
   }
 
   setToDone() {
-    this.assignmentsService.setAssignmentToDone(this.assignment.id).subscribe(console.log);
+    this.assignmentsService
+      .setAssignmentToDone(this.assignment.id)
+      .subscribe(console.log);
   }
 }
