@@ -2,7 +2,7 @@
 <div *ngIf="!classes || classes.length > 0">
   <ul class="list-group">
     <li *ngFor="let cls of classes" class="list-group-item">
-      {{ cls.name }} <button class="btn btn-success" (click)="accept(cls.id)">Accept</button>
+      {{ cls.name }} <button class="btn btn-primary" (click)="accept(cls.id)">Accept</button>
     </li>
   </ul>
 </div>
