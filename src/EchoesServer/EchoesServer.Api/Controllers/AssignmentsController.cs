@@ -82,10 +82,8 @@ namespace EchoesServer.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Assignment assignment)
         {
-            // var classId = assignment.ClassId;
-            // if (classId == 0) return BadRequest ();
-            // var student = await _context.Students.SingleOrDefaultAsync(stud => stud.User.UserName == User.Identity.Name);
-            // if(!student.StudentClasses.Any(sc => sc.StudentId == student.Id && sc.ClassId == classId)) return BadRequest();
+            if (!ModelState.IsValid) return BadRequest();
+
             var studentId =
                 (await _context.Students.SingleOrDefaultAsync(student => student.User.UserName == User.Identity.Name))?.Id;
 
@@ -120,6 +118,7 @@ namespace EchoesServer.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Assignment assignment)
         {
+            if (!ModelState.IsValid) return BadRequest();
             
             if (assignment is null) return BadRequest();
             

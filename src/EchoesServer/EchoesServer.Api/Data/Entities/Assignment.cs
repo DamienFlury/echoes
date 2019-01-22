@@ -9,8 +9,11 @@ namespace EchoesServer.Api.Data.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public DateTime DueTo { get; set; }
         public ICollection<StudentAssignment> StudentAssignments { get; set; }
 
@@ -18,7 +21,7 @@ namespace EchoesServer.Api.Data.Entities
         public int ClassId { get; set; }
         public Class Class { get; set; }
                 
-        public int StudentId { get; set; }
+        public int? StudentId { get; set; }
         public Student Student { get; set; }
     }
 }

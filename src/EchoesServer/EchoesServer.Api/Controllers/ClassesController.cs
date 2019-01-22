@@ -48,6 +48,7 @@ namespace EchoesServer.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] Class cls)
         {
+            if (!ModelState.IsValid) return BadRequest();
             var student = await _context.Students.SingleOrDefaultAsync(std => std.User.UserName == User.Identity.Name);
             _context.StudentClasses.Add(new StudentClass { Student = student, Class = cls });
             await _context.SaveChangesAsync();

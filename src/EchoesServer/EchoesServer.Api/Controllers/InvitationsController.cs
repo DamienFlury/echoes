@@ -26,6 +26,8 @@ namespace EchoesServer.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InviteAsync(InvitationByEmail invitation)
         {
+            if (!ModelState.IsValid) return BadRequest();
+
             var invitedStudent = _context.Students.SingleOrDefault(student => student.User.Email == invitation.Email);
             if (invitedStudent is null) return BadRequest();
 

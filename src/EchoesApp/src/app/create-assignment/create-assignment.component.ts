@@ -3,7 +3,7 @@ import { Assignment } from '../model/assignment';
 import { AssignmentsComponent } from '../assignments/assignments.component';
 import { AssignmentsService } from '../assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-assignment',
@@ -21,6 +21,8 @@ export class CreateAssignmentComponent implements OnInit {
   dueTo: NgbDateStruct;
 
   ngOnInit() {
+    const currentDate = new Date();
+    this.dueTo = {year: currentDate.getFullYear(), month: currentDate.getMonth() + 1, day: currentDate.getDate()};
     this.route.queryParams.subscribe(
       params => (this.assignment.classId = params['classId'])
     );

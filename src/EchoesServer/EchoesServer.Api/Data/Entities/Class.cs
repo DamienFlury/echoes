@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EchoesServer.Api.Data.Entities
@@ -7,6 +8,7 @@ namespace EchoesServer.Api.Data.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public ICollection<StudentClass> StudentClasses { get; set; }
         public ICollection<Assignment> Assignments { get; set; }

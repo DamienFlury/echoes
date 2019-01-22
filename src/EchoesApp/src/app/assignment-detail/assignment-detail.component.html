@@ -1,15 +1,18 @@
 <div *ngIf="assignment" class="card">
-
   <div class="card-body">
     <div class="form-group">
       <input class="form-control" [(ngModel)]="assignment.title" />
     </div>
     <div class="form-group">
-    <input class="form-control" [(ngModel)]="assignment.description" />
-  </div>
+      <input class="form-control" [(ngModel)]="assignment.description" />
+    </div>
     <!-- <button class="btn btn-primary" (click)="setToDone()">Done</button> -->
-    <button class="btn btn-primary" (click)="edit()">Save</button>
-    <button class="btn btn-danger" (click)="delete()">Delete</button>
-    <div class="alert alert-danger" *ngIf="showError">You didn't create the assignment, hence you can't delete it :(</div>
+    <div class="btn-group">
+      <button class="btn btn-primary" (click)="edit()">Save</button>
+      <button class="btn btn-danger" (click)="delete()">Delete</button>
+    </div>
+    <div class="alert alert-danger" *ngIf="showError">
+      You didn't create the assignment, hence you can't delete it :(
+    </div>
   </div>
 </div>

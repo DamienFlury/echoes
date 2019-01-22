@@ -26,8 +26,7 @@ namespace EchoesServer.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] LoginViewModel model)
         {
-            // var user = await _userManager.FindByEmailAsync(model.Email);
-            // if (!(user is null)) return Conflict("User already exists");
+            if (!ModelState.IsValid) return BadRequest();
 
             var user = new ApplicationUser
             {
