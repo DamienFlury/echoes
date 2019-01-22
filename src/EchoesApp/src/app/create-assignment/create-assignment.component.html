@@ -12,7 +12,16 @@
     </div>
   </div>
   <div>
-    <ngb-datepicker #d [(ngModel)]="dueTo" name="due-to"></ngb-datepicker>
+      <div class="row">
+          <div class="col-xs-12 col-12 col-md-4 form-group">
+            <input type="text"
+                   placeholder="Datepicker"
+                   class="form-control"
+                   bsDatepicker
+                   [(ngModel)]="assignment.dueTo"
+                   name="due-to">
+          </div>
+        </div>
   </div>
   <button type="submit" class="btn btn-success">Save</button>
 </form>

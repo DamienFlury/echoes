@@ -1,9 +1,9 @@
 export class Assignment {
-  id: number;
-  title: string;
-  description: string;
-  dueTo: Date;
+  id = 0;
+  title = '';
+  description = '';
+  dueTo = new Date();
   studentAssignments: null;
-  classId: number;
+  classId = 0;
   class: null;
 }
