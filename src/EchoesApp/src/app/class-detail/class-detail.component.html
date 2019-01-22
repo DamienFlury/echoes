@@ -7,21 +7,18 @@
     >Invite</a
   >
 
-  <h2>{{ cls.name }}</h2>
-  <ul class="list-group margin-bottom" *ngIf="cls.assignments.length > 0">
-    <a
-      class="list-group-item list-group-item-action"
-      routerLink="/assignments/{{ assignment.id }}"
-      *ngFor="let assignment of cls.assignments"
-      >{{ assignment.title }}</a
-    >
-  </ul>
+  <h1>{{ cls.name }}</h1>
+  <app-assignments-list
+    [assignments]="cls.assignments"
+    *ngIf="cls.assignments"
+  ></app-assignments-list>
+
   <p *ngIf="cls.assignments.length == 0">No assignments yet!</p>
   <a
     class="btn btn-primary"
     routerLink="/create-assignment"
     [queryParams]="{ classId: cls.id }"
   >
-    Create Assignment
-  </a>
+    Create Assignment</a
+  >
 </div>

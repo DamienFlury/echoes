@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let assignment of assignments" routerLink="../{{ assignment.id }}" class="clickable">
+    <tr *ngFor="let assignment of assignments" routerLink="/assignments/{{ assignment.id }}" class="clickable">
       <td>{{ assignment.title }}</td>
       <td>{{ assignment.description }}</td>
       <td>{{ assignment.dueTo | date }}</td>
