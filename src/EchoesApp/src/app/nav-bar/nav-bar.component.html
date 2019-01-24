@@ -52,7 +52,7 @@
         <a class="nav-link" routerLinkActive="active" routerLink="login" *ngIf="!auth.isLoggedIn"
           >Login</a
         >
-        <a class="nav-link" (click)="logout()" *ngIf="auth.isLoggedIn"
+        <a class="nav-link" (click)="logout()" *ngIf="auth.isLoggedIn" routerLink="#"
           >Logout</a
         >
       </li>
