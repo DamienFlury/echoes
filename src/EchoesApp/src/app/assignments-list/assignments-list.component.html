@@ -1,16 +1,28 @@
-<table class="table table-hover table-striped table-dark" *ngIf="assignments">
-  <thead>
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Description</th>
-      <th scope="col">Due To</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let assignment of assignments" routerLink="/assignments/{{ assignment.id }}" class="clickable">
-      <td>{{ assignment.title }}</td>
-      <td>{{ assignment.description }}</td>
-      <td>{{ assignment.dueTo | date }}</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="!assignments">Loading...</div>
+<div *ngIf="assignments">
+  <div *ngIf="assignments.length > 0">
+    <table class="table table-hover table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Due To</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let assignment of assignments"
+          routerLink="/assignments/{{ assignment.id }}"
+          class="clickable"
+        >
+          <td>{{ assignment.title }}</td>
+          <td>{{ assignment.description }}</td>
+          <td>{{ assignment.dueTo | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="assignments.length == 0">
+    Is this the real life? Is this just fantasy?
+  </div>
+</div>
