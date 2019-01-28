@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Frameworks;
 
 namespace EchoesServer.Api.Controllers
 {
@@ -50,7 +51,23 @@ namespace EchoesServer.Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
             var student = await _context.Students.SingleOrDefaultAsync(std => std.User.UserName == User.Identity.Name);
-            _context.StudentClasses.Add(new StudentClass { Student = student, Class = cls });
+            _context.StudentClasses.Add(new StudentClass {Student = student, Class = cls});
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpGet("leave/{id}")]
+        public async Task<ActionResult> LeaveClass(int id)
+        {
+            var student = await _context.Students.SingleOrDefaultAsync(std => std.User.UserName == User.Identity.Name);
+            var studClass =
+                await _context.StudentClasses.SingleOrDefaultAsync(sc =>
+                    sc.StudentId == student.Id && sc.ClassId == id);
+            if (studClass is null) return BadRequest();
+            _context.StudentClasses.Remove(studClass);
+            await _context.SaveChangesAsync();
+            if (_context.StudentClasses.Any(sc => sc.ClassId == id)) return Ok();
+            _context.Classes.Remove(new Class {Id = id});
             await _context.SaveChangesAsync();
             return Ok();
         }

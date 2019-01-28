@@ -1,8 +1,17 @@
 <h1 class="display-4">Classes</h1>
 
-<div *ngIf="classes" class="margin-bottom">
-  <ul class="list-group">
-    <a *ngFor="let cls of classes" class="list-group-item list-group-item-action" [routerLink]="cls.id">{{ cls.name }}</a>
-  </ul>
+<div *ngIf="!classes">Loading...</div>
+<div *ngIf="classes">
+  <div *ngIf="classes.length > 0" class="margin-bottom">
+    <ul class="list-group">
+      <a
+        *ngFor="let cls of classes"
+        class="list-group-item list-group-item-action"
+        [routerLink]="cls.id"
+        >{{ cls.name }}</a
+      >
+    </ul>
+  </div>
+  <div *ngIf="classes.length === 0" class="alert alert-info">No classes</div>
 </div>
 <a class="btn btn-primary" routerLink="/create-class">Create class</a>

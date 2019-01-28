@@ -1,7 +1,7 @@
 import { Subject } from './subject';
 
 export class Class {
-  id: string;
+  id: number;
   name: string;
   subjects: Subject[];
 }

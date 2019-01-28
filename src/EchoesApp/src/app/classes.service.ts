@@ -23,4 +23,8 @@ export class ClassesService {
   createClass(cls: Class) {
     return this.http.post('/api/classes', cls);
   }
+
+  leaveClass(id: number) {
+    return this.http.get('/api/classes/leave/' + id);
+  }
 }

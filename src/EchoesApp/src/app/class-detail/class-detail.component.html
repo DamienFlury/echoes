@@ -18,12 +18,19 @@
       >
     </ul>
   </div>
-
-  <a
-    class="btn btn-primary"
-    routerLink="/create-subject"
-    [queryParams]="{ classId: cls.id }"
-  >
-    Create Subject</a
-  >
+  <div class="btn-group">
+    <a
+      class="btn btn-primary"
+      routerLink="/create-subject"
+      [queryParams]="{ classId: cls.id }"
+    >
+      Create Subject</a
+    >
+    <button
+      class="btn btn-danger"
+      (click)="leaveClass()"
+    >
+      Leave Class</button
+    >
+  </div>
 </div>
