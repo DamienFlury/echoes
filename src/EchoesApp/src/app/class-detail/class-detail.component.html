@@ -7,13 +7,12 @@
     >Invite</a
   >
 
-  <h1>{{ cls.name }}</h1>
+  <h1 class="display-4">{{ cls.name }}</h1>
   <app-assignments-list
     [assignments]="cls.assignments"
     *ngIf="cls.assignments"
   ></app-assignments-list>
 
-  <p *ngIf="cls.assignments.length == 0">No assignments yet!</p>
   <a
     class="btn btn-primary"
     routerLink="/create-assignment"
