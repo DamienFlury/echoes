@@ -8,16 +8,22 @@
   >
 
   <h1 class="display-4">{{ cls.name }}</h1>
-  <app-assignments-list
-    [assignments]="cls.assignments"
-    *ngIf="cls.assignments"
-  ></app-assignments-list>
+  <div *ngIf="cls.subjects" class="margin-bottom">
+    <ul class="list-group">
+      <a
+        *ngFor="let subject of cls.subjects"
+        class="list-group-item list-group-item-action"
+        routerLink="/subjects/{{ subject.id }}"
+        >{{ subject.title }}</a
+      >
+    </ul>
+  </div>
 
   <a
     class="btn btn-primary"
-    routerLink="/create-assignment"
+    routerLink="/create-subject"
     [queryParams]="{ classId: cls.id }"
   >
-    Create Assignment</a
+    Create Subject</a
   >
 </div>

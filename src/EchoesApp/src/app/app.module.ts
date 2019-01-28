@@ -25,6 +25,9 @@ import { AssignmentsListComponent } from './assignments-list/assignments-list.co
 import { InvitationsComponent } from './invitations/invitations.component';
 import { InviteComponent } from './invite/invite.component';
 import { EditAssignmentComponent } from './edit-assignment/edit-assignment.component';
+import { CreateSubjectComponent } from './create-subject/create-subject.component';
+import { SubjectsComponent } from './subjects/subjects.component';
+import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { EditAssignmentComponent } from './edit-assignment/edit-assignment.compo
     AssignmentsListComponent,
     InvitationsComponent,
     InviteComponent,
-    EditAssignmentComponent
+    EditAssignmentComponent,
+    CreateSubjectComponent,
+    SubjectsComponent,
+    SubjectDetailComponent
   ],
   imports: [
     BrowserModule,

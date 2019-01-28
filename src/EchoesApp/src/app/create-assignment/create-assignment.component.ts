@@ -20,7 +20,7 @@ export class CreateAssignmentComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(
-      params => (this.assignment.classId = params['classId'])
+      params => (this.assignment.subjectId = params['subjectId'])
     );
   }
 
@@ -28,7 +28,7 @@ export class CreateAssignmentComponent implements OnInit {
     this.assignmentsService
       .createAssignment(this.assignment)
       .subscribe(response =>
-        this.router.navigate(['/classes/' + this.assignment.classId])
+        this.router.navigate(['/subjects/' + this.assignment.subjectId])
       );
   }
 }

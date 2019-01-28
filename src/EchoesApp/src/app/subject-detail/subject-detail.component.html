@@ -1,0 +1,11 @@
+<div *ngIf="subject">
+    <h1 class="display-4">{{ subject.title }}</h1>
+    <app-assignments-list *ngIf="subject.assignments" [assignments]="subject.assignments"></app-assignments-list>
+    <a
+      class="btn btn-primary"
+      routerLink="/create-assignment"
+      [queryParams]="{ subjectId: subject.id }"
+    >
+      Create Assignment</a
+    >
+  </div>

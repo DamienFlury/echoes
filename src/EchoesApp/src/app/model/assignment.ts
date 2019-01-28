@@ -4,6 +4,6 @@ export class Assignment {
   description = '';
   dueTo: Date = new Date();
   studentAssignments: null;
-  classId = 0;
-  class: null;
+  subjectId = 0;
+  subject: null;
 }

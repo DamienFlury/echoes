@@ -14,6 +14,9 @@ import { InactiveAssignmentsComponent } from './inactive-assignments/inactive-as
 import { AllAssignmentsComponent } from './all-assignments/all-assignments.component';
 import { InvitationsComponent } from './invitations/invitations.component';
 import { InviteComponent } from './invite/invite.component';
+import { CreateSubjectComponent } from './create-subject/create-subject.component';
+import { SubjectsComponent } from './subjects/subjects.component';
+import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,7 +32,10 @@ const routes: Routes = [
   { path: 'assignments/:id', component: AssignmentDetailComponent },
   { path: 'classes', component: ClassesComponent },
   { path: 'classes/:id', component: ClassDetailComponent },
+  { path: 'subjects', component: SubjectsComponent },
+  { path: 'subjects/:id', component: SubjectDetailComponent },
   { path: 'create-class', component: CreateClassComponent },
+  { path: 'create-subject', component: CreateSubjectComponent },
   { path: 'create-assignment', component: CreateAssignmentComponent },
   { path: 'login', component: LoginComponent },
   { path: 'account', component: AccountComponent },

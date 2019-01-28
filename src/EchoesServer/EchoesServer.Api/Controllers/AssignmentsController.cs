@@ -23,7 +23,8 @@ namespace EchoesServer.Api.Controllers
 
         private IQueryable<Assignment> GetAll() =>
             from assignment in _context.Assignments
-            join cls in _context.Classes on assignment.ClassId equals cls.Id
+            join subject in _context.Subjects on assignment.SubjectId equals subject.Id
+            join cls in _context.Classes on subject.ClassId equals cls.Id
             join sc in _context.StudentClasses on cls.Id equals sc.ClassId
             join student in _context.Students on sc.StudentId equals student.Id
             where student.User.UserName == User.Identity.Name

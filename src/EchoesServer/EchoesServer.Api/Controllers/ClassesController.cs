@@ -40,7 +40,7 @@ namespace EchoesServer.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Class>> Get(int id)
         {
-            var cls = await GetAll().Include(c => c.Assignments).SingleOrDefaultAsync(c => c.Id == id);
+            var cls = await GetAll().Include(c => c.Subjects).SingleOrDefaultAsync(c => c.Id == id);
             if (cls is null) return Unauthorized();
             return cls;
         }

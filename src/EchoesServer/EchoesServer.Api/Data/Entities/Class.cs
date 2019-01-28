@@ -11,6 +11,6 @@ namespace EchoesServer.Api.Data.Entities
         [Required]
         public string Name { get; set; }
         public ICollection<StudentClass> StudentClasses { get; set; }
-        public ICollection<Assignment> Assignments { get; set; }
+        public ICollection<Subject> Subjects { get; set; }
     }
 }

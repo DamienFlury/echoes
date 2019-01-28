@@ -1,7 +1,7 @@
-import { Assignment } from './assignment';
+import { Subject } from './subject';
 
 export class Class {
   id: string;
   name: string;
-  assignments: Assignment[];
+  subjects: Subject[];
 }

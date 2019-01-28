@@ -1,0 +1,7 @@
+<h1 class="display-4">New Subject</h1>
+<form (submit)="onSubmit()">
+  <div class="form-group">
+    <input class="form-control" [(ngModel)]="subject.title" placeholder="Title" name="title">
+  </div>
+  <button type="submit" class="btn btn-success">Save</button>
+</form>
