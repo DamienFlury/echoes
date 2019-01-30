@@ -8,6 +8,10 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{svg}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstdefinestyle{sharpc}{language=[Sharp]C, frame=lr, rulecolor=\color{blue!80!black}}
 
 \graphicspath{ {./images/}}
 
@@ -42,7 +46,7 @@
     \begin{itemize}
         \item ASP.NET Core 2.1
         \item C\# 7.3
-        \item Microsoft SQL Server
+        \item MariaDB
         \item Entity Framework Core
     \end{itemize}
     \subsection{Frontend}
@@ -70,6 +74,67 @@
         \includegraphics[width=\textwidth]{uml2}
         \caption{Entity Relationship Diagram (Generated)}
     \end{figure}
+
+    \section{REST API}
+    Wir verwenden das platformunabhängige Framework ASP.NET Core für die Erstellung einer REST-API.
+    Der Datenbankzugriff läuft über Entity Framework Core. Die Tabellen werden automatisch aus dem Model
+    generiert. Es wird zunächst eine Datenbankmigration erstellt, welche danach auf die Datenbank mit dem
+    \emph{update}-Command auf die Datenbank angewandt werden kann.
+    \begin{verbatim}
+        $ dotnet ef migrations add Initial
+        $ dotnet ef database update
+    \end{verbatim}
+    ASP.NET Core verwendet standardmässig das MVC-Pattern. Somit haben wir Controller, welche die API-Schnittstellen
+    darstellen (Siehe Listing \ref{controller}).
+
+
+    \lstset{style=sharpc}
+    \begin{lstlisting}[caption=Controller, label=controller]
+[Route("api/[controller]")]
+[ApiController]
+[Authorize]
+public class AssignmentsController : ControllerBase
+{
+    [HttpGet]
+    public ActionResult<IEnumerable<Assignment>> Get()
+        => Ok(GetAll());
+}
+    \end{lstlisting}
+
+    Die Datenbank-Aufrufe erfolgen über \emph{LINQ} (Language Integrated Query), eine Abstraktion, um
+    SQL-Statements in C\# selbst zu schreiben. Dies erfolgt entweder über die Lambda-Syntax (Siehe Listing \ref{lambda}), oder über die Query-Syntax
+    (Siehe Listing \ref{query}). Das Mapping auf die Objekte erfolgt automatisch.
+
+    \begin{lstlisting}[caption=Lambda-Syntax, label=lambda]
+var assignments = GetAll()
+    .Where(assignment => assignment.DueTo < DateTime.Now)
+    .OrderBy(assignment => assignment.DueTo);
+    \end{lstlisting}
+
+    \begin{lstlisting}[caption=Query-Syntax, label=query]
+var assignments = from assignment in GetAll()
+    where assignment.DueTo < DateTime.Now
+    orderby assignment.DueTo
+    select assignment;
+    \end{lstlisting}
+
+
+    \section{App}
+    Für das Frontend verwenden wir Angular, ein Single Page Application (SPA) Framework. Dies ist Component-Based
+    und arbeitet viel mit Property-Binding. Für die API-Aufrufe verwenden wir die Klasse \emph{HttpClient} (Siehe 
+    Listing \ref{httpclient}).
+
+    \begin{lstlisting}[language=java,caption=HttpClient, label=httpclient]
+export class AssignmentsService {
+    constructor(private http: HttpClientService) {}
+    
+    getAssignments(): Observable<Assignment[]> {
+        return this.http
+            .get<Assignment[]>('/api/Assignments');
+    }
+}
+          
+    \end{lstlisting}
 
     \section{Endprodukt}
     Bis jetzt hat Echoes einige nützliche Funktionen für Schüler und Lehrer. Sowohl Schüler als auch Lehrer können sogenannte Assignments 
