@@ -11,7 +11,30 @@
 \usepackage{listings}
 \usepackage{xcolor}
 
-\lstdefinestyle{sharpc}{language=[Sharp]C, frame=lr, rulecolor=\color{blue!80!black}}
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+
+\usepackage{listings}
+\lstset{language=[Sharp]C,
+captionpos=b,
+%numbers=left, %Nummerierung
+%numberstyle=\tiny, % kleine Zeilennummern
+frame=lines, % Oberhalb und unterhalb des Listings ist eine Linie
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+morekeywords={partial, var, value, get, set},
+keywordstyle=\color{bluekeywords},
+stringstyle=\color{redstrings},
+basicstyle=\ttfamily\small,
+}
 
 \graphicspath{ {./images/}}
 
@@ -87,9 +110,8 @@
     ASP.NET Core verwendet standardmässig das MVC-Pattern. Somit haben wir Controller, welche die API-Schnittstellen
     darstellen (Siehe Listing \ref{controller}).
 
-
-    \lstset{style=sharpc}
-    \begin{lstlisting}[caption=Controller, label=controller]
+    \begin{figure*}
+    \begin{lstlisting}[caption=Controller, label=controller, language=C]
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
@@ -100,11 +122,13 @@ public class AssignmentsController : ControllerBase
         => Ok(GetAll());
 }
     \end{lstlisting}
+\end{figure*}
 
     Die Datenbank-Aufrufe erfolgen über \emph{LINQ} (Language Integrated Query), eine Abstraktion, um
     SQL-Statements in C\# selbst zu schreiben. Dies erfolgt entweder über die Lambda-Syntax (Siehe Listing \ref{lambda}), oder über die Query-Syntax
     (Siehe Listing \ref{query}). Das Mapping auf die Objekte erfolgt automatisch.
 
+    \begin{figure*}
     \begin{lstlisting}[caption=Lambda-Syntax, label=lambda]
 var assignments = GetAll()
     .Where(assignment => assignment.DueTo < DateTime.Now)
@@ -117,6 +141,7 @@ var assignments = from assignment in GetAll()
     orderby assignment.DueTo
     select assignment;
     \end{lstlisting}
+\end{figure*}
 
 
     \section{App}
@@ -124,6 +149,8 @@ var assignments = from assignment in GetAll()
     und arbeitet viel mit Property-Binding. Für die API-Aufrufe verwenden wir die Klasse \emph{HttpClient} (Siehe 
     Listing \ref{httpclient}).
 
+    \begin{figure*}
+        
     \begin{lstlisting}[language=java,caption=HttpClient, label=httpclient]
 export class AssignmentsService {
     constructor(private http: HttpClientService) {}
@@ -132,9 +159,10 @@ export class AssignmentsService {
         return this.http
             .get<Assignment[]>('/api/Assignments');
     }
-}
-          
+} 
+
     \end{lstlisting}
+    \end{figure*}
 
     \section{Endprodukt}
     Bis jetzt hat Echoes einige nützliche Funktionen für Schüler und Lehrer. Sowohl Schüler als auch Lehrer können sogenannte Assignments 
