@@ -50,11 +50,13 @@ basicstyle=\ttfamily\small,
     \section{Auftrag}
     Unser Auftrag besteht darin, eine Applikation mit Datenbankanbindung zu entwickeln. Technologien
     können frei gewählt werden.
-    \section{Idee}
-    Unsere Idee ist die Entwicklung einer Webapplikation für die Planung von Hausaufgaben
-    und Prüfungen. 
     \section{Projektbeschreibung}
-    Die Webapplikation soll die Verwaltung verschiedener Klassen mit Schülern ermöglichen.
+    Unsere Idee ist die Entwicklung einer Webapplikation für die Planung von Hausaufgaben
+    und Prüfungen. All diese Daten werden in einer Datenbank gespeichert. Wir planen eine Multi-User-Applikation,
+    das heisst, Benutzer werden einen Account erstellen und sich dann damit anmelden können.
+    \section{Anwendungsfälle}
+    Unsere Applikation bietet die perfekte Plattform für Schüler, ihre Aufträge und Prüfungen zentral zu verwalten.
+    Sie soll die Verwaltung verschiedener Klassen mit Schülern ermöglichen und vereinfachen.
     Man soll einen Account erstellen, Hausaufgaben und Prüfungen zu einer Klasse hinzufügen
     und diese auch als erledigt markieren können. Auf die jeweiligen Hausaufgaben einer Klasse
     haben alle zugehörigen Schüler Zugriff und können diese lesen. Ob sie Aufträge auch bearbeiten
@@ -67,24 +69,24 @@ basicstyle=\ttfamily\small,
     Page Application (SPA) Framework Angular.
     \subsection{Backend}
     \begin{itemize}
-        \item ASP.NET Core 2.1
+        \item ASP.NET Core 2.1 \cite{Dotnet}
         \item C\# 7.3
-        \item MySQL (MariaDB)
+        \item MySQL (MariaDB) \cite{MariaDB}
         \item Entity Framework Core
     \end{itemize}
     \subsection{Frontend}
     \begin{itemize}
-    \item Angular 7
-    \item Typescript
-    \item Bootstrap 4
+    \item Angular 7 \cite{Angular}
+    \item Typescript \cite{TypeScript}
+    \item Bootstrap 4 \cite{Bootstrap}
     \end{itemize}
     \subsection{Dokumentation und Allgemeines}
     \begin{itemize}
-        \item \LaTeX{}
-        \item Visual Studio Code
-        \item Visual Studio
-        \item Jetbrains Rider
-        \item Git und GitHub
+        \item \LaTeX{} \cite{LaTeX}
+        \item Visual Studio Code \cite{VSCode}
+        \item Visual Studio \cite{VS}
+        \item Jetbrains Rider \cite{Rider}
+        \item Git und GitHub \cite{GitHub}
     \end{itemize}
 
     \section{Datenbank und konzeptionelles Datenmodell}
@@ -92,7 +94,7 @@ basicstyle=\ttfamily\small,
     verwenden wir Entity Framework Core. Die Tabelle \emph{ApplicationUser}
     ist für das Login zuständig und besitzt eine 1-1 Beziehung mit \emph{Student}.
     Jeder Student gehört einer oder keiner \emph{Class} (Schulklasse) an. Eine Schulklasse besitzt
-    keine oder mehrere \emph{Assignments}, also Aufträge. Die Tabelle \emph{StudentAssignment}
+    beliebig viele \emph{Assignments}, also Aufträge. Die Tabelle \emph{StudentAssignment}
     bietet die Möglichkeit, die Hausaufgaben, welche bereits erledigt wurden,
     zu markieren.
     \begin{figure}
@@ -104,6 +106,11 @@ basicstyle=\ttfamily\small,
     \begin{figure}
         \includegraphics[width=\textwidth]{uml2}
         \caption{Entity Relationship Diagram (Generated)}
+    \end{figure}
+
+    \begin{figure}
+        \includegraphics[width=\textwidth]{uml3}
+        \caption{Logisches Datenmodell}
     \end{figure}
 
     \section{REST API}
@@ -211,5 +218,9 @@ export class AssignmentsService {
     % \end{figure}
 
     \newpage
+
+    \bibliography{references.bib}
+    \bibliographystyle{plain}
+
   
 \end{document}
