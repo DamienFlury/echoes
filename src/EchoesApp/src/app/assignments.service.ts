@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Assignment } from './model/assignment';
-import { AuthService } from './auth.service';
 import { HttpClientService } from './http-client.service';
 
 @Injectable({
@@ -28,7 +25,7 @@ export class AssignmentsService {
   createAssignment(assignment: Assignment) {
     return this.http.post('/api/Assignments', assignment);
   }
-  deleteAssignemnt(id: number) {
+  deleteAssignment(id: number) {
     return this.http.delete('/api/Assignments/', id);
   }
   setAssignmentToDone(id: number) {

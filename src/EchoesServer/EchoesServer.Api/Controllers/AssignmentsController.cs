@@ -4,29 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens.Saml2;
 
 namespace EchoesServer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class AssignmentsController : ControllerBase
+    public class AssignmentsController : ApiControllerBase
     {
-        private readonly SchoolContext _context;
-
-        public AssignmentsController(SchoolContext context) => _context = context;
+        public AssignmentsController(SchoolContext context) : base(context)
+        {
+        }
 
         private IQueryable<Assignment> GetAll() =>
-            from assignment in _context.Assignments
-            join subject in _context.Subjects on assignment.SubjectId equals subject.Id
-            join cls in _context.Classes on subject.ClassId equals cls.Id
-            join sc in _context.StudentClasses on cls.Id equals sc.ClassId
-            join student in _context.Students on sc.StudentId equals student.Id
+            from assignment in Context.Assignments
+            join subject in Context.Subjects on assignment.SubjectId equals subject.Id
+            join cls in Context.Classes on subject.ClassId equals cls.Id
+            join sc in Context.StudentClasses on cls.Id equals sc.ClassId
+            join student in Context.Students on sc.StudentId equals student.Id
             where student.User.UserName == User.Identity.Name
             select assignment;
 
@@ -39,8 +37,8 @@ namespace EchoesServer.Api.Controllers
 
         private IQueryable<Assignment> GetActiveDoneAssignments() =>
             from assignment in GetActiveAssignments()
-            join sa in _context.StudentAssignments on assignment.Id equals sa.AssignmentId
-            join student in _context.Students on sa.StudentId equals student.Id
+            join sa in Context.StudentAssignments on assignment.Id equals sa.AssignmentId
+            join student in Context.Students on sa.StudentId equals student.Id
             select assignment;
 
         // GET api/values
@@ -71,12 +69,12 @@ namespace EchoesServer.Api.Controllers
             return Ok(assignments);
         }
 
-        // GET api/values/5        
+        // GET api/values/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Assignment>> GetAsync(int id)
         {
             var assignment = await GetAll().SingleOrDefaultAsync(a => a.Id == id);
-            if (assignment is null) return Unauthorized();
+            if (assignment is null) return NotFound();
             return assignment;
         }
 
@@ -85,33 +83,28 @@ namespace EchoesServer.Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var studentId =
-                (await _context.Students.SingleOrDefaultAsync(student => student.User.UserName == User.Identity.Name))?.Id;
+            var student = await GetCurrentStudentAsync();
+            if (student is null) return BadRequest();
 
-            if (studentId is null) return BadRequest();
-
-            assignment.StudentId = studentId.Value;
-            await _context.Assignments.AddAsync(assignment);
-            await _context.SaveChangesAsync();
+            assignment.StudentId = student.Id;
+            await Context.Assignments.AddAsync(assignment);
+            await Context.SaveChangesAsync();
             return Ok(assignment);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var student =
-                await _context.Students.SingleOrDefaultAsync(stud => stud.User.UserName == User.Identity.Name);
-
+            var student = await GetCurrentStudentAsync();
             if (student is null) return BadRequest();
 
-            var assignment = await _context.Assignments.SingleOrDefaultAsync(a => a.Id == id);
-
+            var assignment = await Context.Assignments.SingleOrDefaultAsync(a => a.Id == id);
             if (assignment is null) return BadRequest();
 
             if (assignment.StudentId != student.Id) return BadRequest();
 
-            _context.Assignments.Remove(assignment);
-            await _context.SaveChangesAsync();
+            Context.Assignments.Remove(assignment);
+            await Context.SaveChangesAsync();
 
             return Ok();
         }
@@ -120,38 +113,48 @@ namespace EchoesServer.Api.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] Assignment assignment)
         {
             if (!ModelState.IsValid) return BadRequest();
-            
+
             if (assignment is null) return BadRequest();
-            
+
             if (id != assignment.Id) return BadRequest();
 
-            var student =
-                await _context.Students.SingleOrDefaultAsync(stud => stud.User.UserName == User.Identity.Name);
-
+            var student = await GetCurrentStudentAsync();
             if (student is null) return BadRequest();
 
-            if (assignment.StudentId != student.Id) return BadRequest();
+            // Load the tracked entity ourselves rather than trusting the client-supplied
+            // StudentId/State for authorization - the request body is attacker-controlled.
+            var existing = await GetAll().SingleOrDefaultAsync(a => a.Id == id);
+            if (existing is null) return NotFound();
+            if (existing.StudentId != student.Id) return Forbid();
 
+            existing.Title = assignment.Title;
+            existing.Description = assignment.Description;
+            existing.DueTo = assignment.DueTo;
+            existing.SubjectId = assignment.SubjectId;
 
-            _context.Entry(assignment).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
             return NoContent();
-
         }
 
         [HttpPost("Done")]
         public async Task<IActionResult> SetToDone([FromBody] int id)
         {
-            var student = await _context.Students.SingleOrDefaultAsync(s => s.User.UserName == User.Identity.Name);
+            var student = await GetCurrentStudentAsync();
             if (student is null) return BadRequest();
-            var assignment = await _context.Assignments.SingleOrDefaultAsync(a => a.Id == id);
+
+            var assignment = await GetAll().SingleOrDefaultAsync(a => a.Id == id);
             if (assignment is null) return BadRequest();
-            await _context.StudentAssignments.AddAsync(new StudentAssignment
+
+            var alreadyDone = await Context.StudentAssignments
+                .AnyAsync(sa => sa.StudentId == student.Id && sa.AssignmentId == id);
+            if (alreadyDone) return Ok();
+
+            await Context.StudentAssignments.AddAsync(new StudentAssignment
             {
                 StudentId = student.Id,
                 AssignmentId = id
             });
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
             return Ok();
         }
     }

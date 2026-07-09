@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Class } from './model/class';
 import { HttpClientService } from './http-client.service';
@@ -25,6 +22,6 @@ export class ClassesService {
   }
 
   leaveClass(id: number) {
-    return this.http.get('/api/classes/leave/' + id);
+    return this.http.delete('/api/classes/leave/', id);
   }
 }

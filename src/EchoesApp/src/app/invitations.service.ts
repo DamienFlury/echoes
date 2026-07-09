@@ -22,6 +22,6 @@ export class InvitationsService {
   }
 
   accept(classId: number): Observable<Class[]> {
-    return this.http.get('/api/invitations/accept/' + classId);
+    return this.http.post<Class[]>('/api/invitations/accept/' + classId, null);
   }
 }

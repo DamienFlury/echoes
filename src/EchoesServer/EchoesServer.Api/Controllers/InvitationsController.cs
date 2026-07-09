@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,67 +12,69 @@ namespace EchoesServer.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class InvitationsController : ControllerBase
+    public class InvitationsController : ApiControllerBase
     {
-        private readonly SchoolContext _context;
-
-        public InvitationsController(SchoolContext context)
+        public InvitationsController(SchoolContext context) : base(context)
         {
-            _context = context;
         }
-
 
         [HttpPost]
         public async Task<IActionResult> InviteAsync(InvitationByEmail invitation)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var invitedStudent = _context.Students.SingleOrDefault(student => student.User.Email == invitation.Email);
+            var student = await GetCurrentStudentAsync();
+            if (student is null) return BadRequest();
+
+            var isMember = await Context.StudentClasses
+                .AnyAsync(sc => sc.ClassId == invitation.ClassId && sc.StudentId == student.Id);
+            if (!isMember) return Forbid();
+
+            var invitedStudent = await Context.Students.SingleOrDefaultAsync(s => s.User.Email == invitation.Email);
             if (invitedStudent is null) return BadRequest();
 
-            var studentId = invitedStudent.Id;
-
-            _context.Invitations.Add(new Invitation
+            Context.Invitations.Add(new Invitation
             {
                 ClassId = invitation.ClassId,
-                StudentId = studentId
+                StudentId = invitedStudent.Id
             });
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
 
             return Ok();
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Invitation>> Get()
+        public async Task<ActionResult<IEnumerable<Invitation>>> Get()
         {
-            var student = _context.Students.SingleOrDefault(stud => stud.User.UserName == User.Identity.Name);
+            var student = await GetCurrentStudentAsync();
             if (student is null) return BadRequest();
 
-            var invitations = from invitation in _context.Invitations
+            var invitations = from invitation in Context.Invitations
                 where invitation.StudentId == student.Id
                 select invitation.Class;
 
             return Ok(invitations);
         }
 
-        [HttpGet("accept/{id}")]
-        public ActionResult<IEnumerable<Invitation>> Accept(int id)
+        [HttpPost("accept/{id}")]
+        public async Task<ActionResult<IEnumerable<Invitation>>> Accept(int id)
         {
-            var student = _context.Students.SingleOrDefault(stud => stud.User.UserName == User.Identity.Name);
+            var student = await GetCurrentStudentAsync();
             if (student is null) return BadRequest();
 
-            _context.StudentClasses.Add(new StudentClass
+            var invitationToRemove =
+                await Context.Invitations.SingleOrDefaultAsync(inv => inv.ClassId == id && inv.StudentId == student.Id);
+            if (invitationToRemove is null) return BadRequest();
+
+            Context.StudentClasses.Add(new StudentClass
             {
                 StudentId = student.Id,
                 ClassId = id
             });
+            Context.Invitations.Remove(invitationToRemove);
 
-            var invitationToRemove = _context.Invitations.SingleOrDefault(inv => inv.ClassId == id && inv.StudentId == student.Id);
-            if (invitationToRemove is null) return BadRequest();
-            _context.Invitations.Remove(invitationToRemove);
-
-            _context.SaveChanges();
-            return Get();
+            await Context.SaveChangesAsync();
+            return await Get();
         }
     }
 }

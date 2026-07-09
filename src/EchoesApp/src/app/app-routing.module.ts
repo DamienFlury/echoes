@@ -17,30 +17,32 @@ import { InviteComponent } from './invite/invite.component';
 import { CreateSubjectComponent } from './create-subject/create-subject.component';
 import { SubjectsComponent } from './subjects/subjects.component';
 import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   {
     path: 'assignments',
     component: AssignmentsComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'active', component: ActiveAssignmentsComponent },
       { path: 'inactive', component: InactiveAssignmentsComponent },
       { path: 'all', component: AllAssignmentsComponent }
     ]
   },
-  { path: 'assignments/:id', component: AssignmentDetailComponent },
-  { path: 'classes', component: ClassesComponent },
-  { path: 'classes/:id', component: ClassDetailComponent },
-  { path: 'subjects', component: SubjectsComponent },
-  { path: 'subjects/:id', component: SubjectDetailComponent },
-  { path: 'create-class', component: CreateClassComponent },
-  { path: 'create-subject', component: CreateSubjectComponent },
-  { path: 'create-assignment', component: CreateAssignmentComponent },
+  { path: 'assignments/:id', component: AssignmentDetailComponent, canActivate: [AuthGuard] },
+  { path: 'classes', component: ClassesComponent, canActivate: [AuthGuard] },
+  { path: 'classes/:id', component: ClassDetailComponent, canActivate: [AuthGuard] },
+  { path: 'subjects', component: SubjectsComponent, canActivate: [AuthGuard] },
+  { path: 'subjects/:id', component: SubjectDetailComponent, canActivate: [AuthGuard] },
+  { path: 'create-class', component: CreateClassComponent, canActivate: [AuthGuard] },
+  { path: 'create-subject', component: CreateSubjectComponent, canActivate: [AuthGuard] },
+  { path: 'create-assignment', component: CreateAssignmentComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'account', component: AccountComponent },
-  { path: 'invitations', component: InvitationsComponent },
-  { path: 'invite', component: InviteComponent }
+  { path: 'invitations', component: InvitationsComponent, canActivate: [AuthGuard] },
+  { path: 'invite', component: InviteComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

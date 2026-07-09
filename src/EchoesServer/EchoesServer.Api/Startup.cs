@@ -71,8 +71,11 @@ namespace EchoesServer.Api
 
             app.UseAuthentication();
 
+            var allowedOrigins = Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+                                  ?? new[] {"http://localhost:4200"};
+
             app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:4200").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+                builder.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod());
 
             app.UseHttpsRedirection();
             app.UseMvc();

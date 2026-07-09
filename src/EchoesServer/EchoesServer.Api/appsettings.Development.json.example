@@ -1,0 +1,8 @@
+{
+  "ConnectionStrings": {
+    "MySql": "Server=localhost;Database=Echoes;User Id=root;Password=<your-local-mysql-password>;"
+  },
+  "Tokens": {
+    "Key": "<a-long-random-development-only-secret>"
+  }
+}

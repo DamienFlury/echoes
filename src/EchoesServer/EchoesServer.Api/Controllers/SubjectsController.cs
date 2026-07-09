@@ -1,37 +1,40 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EchoesServer.Api.Data;
 using EchoesServer.Api.Data.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens.Saml2;
 
 namespace EchoesServer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class SubjectsController : ControllerBase
+    public class SubjectsController : ApiControllerBase
     {
-        private readonly SchoolContext _context;
+        public SubjectsController(SchoolContext context) : base(context)
+        {
+        }
 
-        public SubjectsController(SchoolContext context) => _context = context;
+        private IQueryable<Subject> GetAll() =>
+            from subject in Context.Subjects
+            join sc in Context.StudentClasses on subject.ClassId equals sc.ClassId
+            join student in Context.Students on sc.StudentId equals student.Id
+            where student.User.UserName == User.Identity.Name
+            select subject;
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Subject>> Get() => Ok(_context.Subjects);
+        public ActionResult<IEnumerable<Subject>> Get() => Ok(GetAll());
 
-
-        // GET api/values/5        
+        // GET api/values/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Subject>> GetAsync(int id)
         {
-            var subject = await _context.Subjects.Include(subj => subj.Assignments).SingleOrDefaultAsync(a => a.Id == id);
-            if (subject is null) return Unauthorized();
+            var subject = await GetAll().Include(subj => subj.Assignments).SingleOrDefaultAsync(a => a.Id == id);
+            if (subject is null) return NotFound();
             return subject;
         }
 
@@ -40,15 +43,16 @@ namespace EchoesServer.Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var studentId =
-                (await _context.Students.SingleOrDefaultAsync(student => student.User.UserName == User.Identity.Name))?.Id;
+            var student = await GetCurrentStudentAsync();
+            if (student is null) return BadRequest();
 
-            if (studentId is null) return BadRequest();
+            var isMember = await Context.StudentClasses
+                .AnyAsync(sc => sc.ClassId == subject.ClassId && sc.StudentId == student.Id);
+            if (!isMember) return Forbid();
 
-            await _context.Subjects.AddAsync(subject);
-            await _context.SaveChangesAsync();
+            await Context.Subjects.AddAsync(subject);
+            await Context.SaveChangesAsync();
             return Ok(subject);
         }
-
     }
 }
